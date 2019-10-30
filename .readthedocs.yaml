@@ -17,7 +17,7 @@ sphinx:
 formats: all
 
 conda:
-  environment: dtnsim/bin/conda_environment.yaml
+  environment: conda_environment.yaml
 
 python:
   install:
