@@ -1,9 +1,0 @@
-README.md
-setup.py
-dsnsim.egg-info/PKG-INFO
-dsnsim.egg-info/SOURCES.txt
-dsnsim.egg-info/dependency_links.txt
-dsnsim.egg-info/entry_points.txt
-dsnsim.egg-info/requires.txt
-dsnsim.egg-info/top_level.txt
-simulator/__init__.py

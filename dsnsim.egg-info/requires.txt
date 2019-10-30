@@ -1,7 +1,0 @@
-setuptools
-
-[docs]
-sphinx
-sphinx_bootstrap_theme
-
-[test]
