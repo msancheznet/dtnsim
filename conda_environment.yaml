@@ -12,7 +12,9 @@ dependencies:
   - openpyxl
   - xlrd
   - pip
+  - sphinx
   - pip:
     - simpy
     - pydantic==0.13
+    - sphinx_bootstrap_theme
 
