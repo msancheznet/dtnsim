@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simulator.radios.DtnVariableRadio &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../License.html">3. Copyright and Licensing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for simulator.radios.DtnVariableRadio</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"># ==================================================================================</span>
+<span class="sd"># Author: Marc Sanchez Net</span>
+<span class="sd"># Date:   03/24/2019</span>
+<span class="sd"># Copyright (c) 2019, Jet Propulsion Laboratory.</span>
+<span class="sd"># ==================================================================================</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">simulator.core.DtnSemaphore</span> <span class="k">import</span> <span class="n">DtnSemaphore</span>
+<span class="kn">from</span> <span class="nn">simulator.radios.DtnBasicRadio</span> <span class="k">import</span> <span class="n">DtnBasicRadio</span>
+
+<div class="viewcode-block" id="DtnVariableRadio"><a class="viewcode-back" href="../../../API.html#simulator.radios.DtnVariableRadio.DtnVariableRadio">[docs]</a><span class="k">class</span> <span class="nc">DtnVariableRadio</span><span class="p">(</span><span class="n">DtnBasicRadio</span><span class="p">):</span>
+
+    <span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Reset static variable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="DtnVariableRadio.initialize"><a class="viewcode-back" href="../../../API.html#simulator.radios.DtnVariableRadio.DtnVariableRadio.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datarate_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Define the data rate as NaN</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="c1"># Initialize data rate profile</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">indir</span><span class="o">/</span><span class="n">datarate_file</span>
+
+        <span class="c1"># If this data is already loaded, use it</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nid</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_data_rate</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="c1"># Depack and transform all to numpy arrays</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;list&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span> <span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="c1"># Call parent initializer</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnVariableRadio</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Create a semaphore to signal when the radio has &gt;0 data rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">DtnSemaphore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">green</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dr</span> <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="s1">&#39;t&#39;</span><span class="p">}</span>
+
+        <span class="c1"># Start radio data rate monitor</span>
+        <span class="k">for</span> <span class="n">dest</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datarate_monitor</span><span class="p">(</span><span class="n">dest</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">load_data_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+        <span class="c1"># Load depending on file type</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">file</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s1">&#39;.h5&#39;</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;data_rate&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;Only .xlsx and .h5 files can be loaded&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get the timelines for this node</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nid</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Store data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nid</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+
+        <span class="k">return</span> <span class="n">df</span>
+
+    <span class="k">def</span> <span class="nf">datarate_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+        <span class="c1"># If no data for this destination, exit</span>
+        <span class="k">if</span> <span class="n">dest</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="p">:</span> <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+        <span class="c1"># Initialize variables</span>
+        <span class="n">sm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">[</span><span class="n">dest</span><span class="p">]</span>
+
+        <span class="c1"># Iterate over data rate profile</span>
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">dr</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="p">[</span><span class="n">dest</span><span class="p">]):</span>
+            <span class="c1"># Wait until its time to update</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">))</span>
+
+            <span class="c1"># If no data rate and already red, continue</span>
+            <span class="k">if</span> <span class="n">dr</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">sm</span><span class="o">.</span><span class="n">is_red</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># If data rate == 0 and green, turn red</span>
+            <span class="k">if</span> <span class="n">dr</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">sm</span><span class="o">.</span><span class="n">is_green</span><span class="p">:</span>
+                <span class="n">sm</span><span class="o">.</span><span class="n">turn_red</span><span class="p">()</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># If you reach this point, turn green if red</span>
+            <span class="k">if</span> <span class="n">sm</span><span class="o">.</span><span class="n">is_red</span><span class="p">:</span> <span class="n">sm</span><span class="o">.</span><span class="n">turn_green</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+            <span class="c1"># Get the next segment to transmit</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="c1"># Depack item</span>
+            <span class="n">neighbor</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">direction</span> <span class="o">=</span> <span class="n">item</span>
+
+            <span class="c1"># Wait until this connection is active</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span><span class="o">.</span><span class="n">is_red</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span><span class="o">.</span><span class="n">green</span>
+
+            <span class="c1"># Get the connection to send this message through</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcons</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span>
+
+            <span class="c1"># Get the data rate for this radio</span>
+            <span class="n">tx_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tx_time</span><span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+
+            <span class="c1"># Apply delay for radio to transmit entire segment</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">tx_time</span><span class="p">)</span>
+
+            <span class="c1"># Count the energy consumed</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">+=</span> <span class="n">message</span><span class="o">.</span><span class="n">num_bits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">J_bit</span>
+
+            <span class="c1"># Transmit the message through the connection.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_through_connection</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_tx_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="c1"># Initialize variables</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">dr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dr</span><span class="p">[</span><span class="n">dest</span><span class="p">]</span>
+
+        <span class="c1"># Find the first instant that exceeds current time</span>
+        <span class="n">idx1</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+
+        <span class="c1"># Figure out how much data you could send between now and this first instant</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">dr</span><span class="p">[</span><span class="n">idx1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># If that is enough data rate, you are done</span>
+        <span class="k">if</span> <span class="n">dv</span> <span class="o">&gt;=</span> <span class="n">message</span><span class="o">.</span><span class="n">data_vol</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="n">data_vol</span><span class="o">/</span><span class="n">dr</span><span class="p">[</span><span class="n">idx1</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Clip time series to only the relevant parts</span>
+        <span class="n">elapsed</span>  <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">dr</span>    <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">idx1</span><span class="p">:]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">idx1</span><span class="p">],</span> <span class="n">dr</span><span class="p">[</span><span class="n">idx1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">data_vol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">data_vol</span> <span class="o">-</span> <span class="n">dv</span><span class="p">)</span>
+
+        <span class="c1"># Otherwise, check how long it will take. First, compute the amount of data</span>
+        <span class="c1"># sent over the connection cumulatively</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">dr</span><span class="p">)</span>
+
+        <span class="c1"># Find the instant in time where dv exceeds the message dv</span>
+        <span class="n">idx2</span> <span class="o">=</span> <span class="p">(</span><span class="n">dv</span> <span class="o">&gt;=</span> <span class="n">data_vol</span><span class="p">)</span>
+
+        <span class="c1"># If it never sends this data volume, return infinite</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">idx2</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nid</span><span class="p">,</span> <span class="s1">&#39;radio is stuck forever&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get the first index (i.e. the first instant in time) where you will have sent</span>
+        <span class="c1"># the message</span>
+        <span class="n">idx2</span> <span class="o">=</span> <span class="n">idx2</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+
+        <span class="c1"># Compute the amount of extra data that will have sent by the end of idx2+1.</span>
+        <span class="c1"># You need to subtract it.</span>
+        <span class="n">extra_dv</span> <span class="o">=</span> <span class="n">dv</span><span class="p">[</span><span class="n">idx2</span><span class="p">]</span><span class="o">-</span><span class="n">data_vol</span>
+
+        <span class="c1"># Compute the amount of time to send this ddv bits</span>
+        <span class="n">Ttx</span> <span class="o">=</span> <span class="n">elapsed</span> <span class="o">+</span> <span class="n">t</span><span class="p">[</span><span class="n">idx2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">extra_dv</span><span class="o">/</span><span class="n">dr</span><span class="p">[</span><span class="n">idx2</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">Ttx</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

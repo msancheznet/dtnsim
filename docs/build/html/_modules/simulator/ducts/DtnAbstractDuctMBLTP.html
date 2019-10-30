@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simulator.ducts.DtnAbstractDuctMBLTP &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../License.html">3. Copyright and Licensing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for simulator.ducts.DtnAbstractDuctMBLTP</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">simulator.ducts.DtnAbstractDuctLTP</span> <span class="k">import</span> <span class="n">DtnAbstractDuctLTP</span>
+<span class="kn">from</span> <span class="nn">simulator.utils.DtnUtils</span> <span class="k">import</span> <span class="n">load_class_dynamically</span>
+
+<div class="viewcode-block" id="DtnAbstractDuctMBLTP"><a class="viewcode-back" href="../../../API.html#simulator.ducts.DtnAbstractDuctMBLTP.DtnAbstractDuctMBLTP">[docs]</a><span class="k">class</span> <span class="nc">DtnAbstractDuctMBLTP</span><span class="p">(</span><span class="n">DtnAbstractDuctLTP</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; An abstract Multiband LTP duct. It is subclassed by both ``DtnOuductMBLTP`` and</span>
+<span class="sd">        ``DtnInductMBLTP``. It extends the capabilities of ``DtnAbstractDuctLTP`` by allowing:</span>
+
+<span class="sd">        1) Multiple LTP engines that have independent LTP configuration parameters</span>
+<span class="sd">        2) Mutliple radios, one per band, with its associated queues, data rates and BERs</span>
+
+<span class="sd">        The generation of unique session ids for a multiband LTP duct is different from an LTP duct.</span>
+<span class="sd">        For the latter, you use a hash based function (see ``DtnAbstractDuctLTP``). However, for the</span>
+<span class="sd">        multiband case you need the session ids to be sequential and therefore we use a counter object.</span>
+
+<span class="sd">        The need to have sequential session ids comes from the fact that a segment can arrive at an</span>
+<span class="sd">        induct for a session that has already succeeded and is no longer available. Therefore, we use</span>
+<span class="sd">        this sequential property to detect this corner case and not re-open a session for a block that</span>
+<span class="sd">        has already been delivered to the DTN node.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">):</span>
+        <span class="c1"># Call parent constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnAbstractDuctMBLTP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)</span>
+
+        <span class="c1"># For a multi-band LTP, you will have more than one radio. Therefore, index</span>
+        <span class="c1"># them in a dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Counter for session ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sid_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">bands</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Call DtnAbstractDuct initializer. Note that you are</span>
+        <span class="c1"># calling the constructor of the grandparent.</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnAbstractDuctLTP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">peer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Store the bands available in this duct</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bands</span> <span class="o">=</span> <span class="n">bands</span>
+
+        <span class="c1"># Get the radios to use</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio</span> <span class="o">=</span> <span class="p">{</span><span class="n">b</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">radios</span><span class="p">[</span><span class="n">kwargs</span><span class="p">[</span><span class="n">b</span><span class="p">]]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bands</span><span class="p">}</span>
+
+<div class="viewcode-block" id="DtnAbstractDuctMBLTP.get_session_id"><a class="viewcode-back" href="../../../API.html#simulator.ducts.DtnAbstractDuctMBLTP.DtnAbstractDuctMBLTP.get_session_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_session_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Utilize a global session counter. This is needed because session ids</span>
+<span class="sd">            must be sequential</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sid_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sid_counter</span></div>
+
+    <span class="k">def</span> <span class="nf">total_datarate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">datarate</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">radios</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span></div>
+
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

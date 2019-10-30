@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>simulator.routers.cgr &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../License.html">3. Copyright and Licensing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#definitions">3.1. Definitions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#grant-of-copyright-license">3.2. Grant of Copyright License.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#grant-of-patent-license">3.3. Grant of Patent License.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#redistribution">3.4. Redistribution.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#submission-of-contributions">3.5. Submission of Contributions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#trademarks">3.6. Trademarks.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#disclaimer-of-warranty">3.7. Disclaimer of Warranty.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#limitation-of-liability">3.8. Limitation of Liability.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../License.html#accepting-warranty-or-additional-liability">3.9. Accepting Warranty or Additional Liability.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../RequestCode.html">4. Request Code</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for simulator.routers.cgr</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">isin</span><span class="p">,</span> <span class="n">str_type</span>
+
+<span class="c1"># ============================================================================================================</span>
+<span class="c1"># === BUILD A COLLECTION OF ROUTES BETWEEN ONE ORIG AND DEST</span>
+<span class="c1"># ============================================================================================================</span>
+
+<div class="viewcode-block" id="cgr_build_route_list_fast"><a class="viewcode-back" href="../../../API.html#simulator.routers.cgr.cgr_build_route_list_fast">[docs]</a><span class="k">def</span> <span class="nf">cgr_build_route_list_fast</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">contact_plan</span><span class="p">,</span> <span class="n">relays</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_speed</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Implement the Dijkstra algorithm to find the route that delivers data the earliest</span>
+
+<span class="sd">        :param orig: Name of the node where the bundle originates (e.g. PSH)</span>
+<span class="sd">        :param dest: Name of the node where the bundle is destined for (e.g. Earth)</span>
+<span class="sd">        :param pandas.Timestamp t: Time at which the bundle needs to be routed</span>
+<span class="sd">        :param pandas.DataFrame contact_plan: Contact table</span>
+<span class="sd">        :param tuple relays: Name of the nodes that can be used as relays to construct the route. Default is None, which</span>
+<span class="sd">                             indicates that all nodes can be relays</span>
+<span class="sd">        :param float max_speed: Max speed that a spacecraft can move in mph. Default is 125 miles/sec</span>
+<span class="sd">        :return list: List of routes. See ``find_route`` to see the information in a route</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize variables</span>
+    <span class="n">routes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">anchor</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cp</span>     <span class="o">=</span> <span class="n">contact_plan</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tinf</span>   <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">tstart</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">cp</span><span class="o">.</span><span class="n">tend</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">+</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">365</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span>
+    <span class="n">nodes</span>  <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">orig</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span><span class="p">))</span>
+    <span class="n">relays</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">relays</span><span class="p">)</span> <span class="k">if</span> <span class="n">relays</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+    <span class="n">count</span>  <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">msg</span>    <span class="o">=</span> <span class="s1">&#39;Route </span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">: [</span><span class="si">{}</span><span class="s1">]</span><span class="se">\t</span><span class="s1">EAT=</span><span class="si">{}</span><span class="s1">, Validity=(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">), Contacts=</span><span class="si">{}</span><span class="s1">, Hops=</span><span class="si">{}</span><span class="s1">&#39;</span>
+    <span class="n">r_cids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1"># Eliminate contact with itself if it exists (needs to be done before adding -1 and -2)</span>
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">orig</span><span class="o">==</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span><span class="p">)]</span>
+
+    <span class="c1"># Add dummy initial and final contacts (orig, dest, tstart, tend, rate, duration, range, rate, capacity)</span>
+    <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">orig</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">tinf</span><span class="p">,</span> <span class="n">tinf</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;tstart&#39;</span><span class="p">,</span> <span class="s1">&#39;tend&#39;</span><span class="p">,</span> <span class="s1">&#39;orig&#39;</span><span class="p">,</span> <span class="s1">&#39;dest&#39;</span><span class="p">])</span>
+    <span class="n">Nrows</span><span class="p">,</span> <span class="n">Ncols</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># Transform to dict for fast processing. Format is {column -&gt; [values]}</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">cp</span>  <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">cp</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cp</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span>
+
+    <span class="c1"># Initialize variables</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;owlt&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;margin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;owlt&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">max_speed</span><span class="o">/</span><span class="mi">186000</span><span class="p">)</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tinf</span><span class="p">]</span><span class="o">*</span><span class="n">Nrows</span><span class="p">)</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">Nrows</span><span class="p">)</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;visited&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">Nrows</span><span class="p">)</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;suppressed&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">Nrows</span><span class="p">)</span>
+
+    <span class="c1"># Mark the EAT for the initial contact</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">][</span><span class="n">idx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Use dijkstra algorithm to find a route</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="n">find_route_fast</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">tinf</span><span class="p">,</span> <span class="n">relays</span><span class="p">)</span>
+
+        <span class="c1"># No more routes are available, exit</span>
+        <span class="k">if</span> <span class="n">route</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="k">break</span>
+
+        <span class="c1"># Fill out constant route properties</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;orig&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+
+        <span class="c1"># Initialize variables</span>
+        <span class="n">first_contact</span> <span class="o">=</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># If anchor available, use if</span>
+        <span class="k">if</span> <span class="n">anchor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">first_contact</span> <span class="o">!=</span> <span class="n">anchor</span><span class="p">:</span>
+            <span class="c1"># End anchored route search</span>
+            <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;suppressed&#39;</span><span class="p">][</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;orig&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">orig</span><span class="p">]</span>    <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;suppressed&#39;</span><span class="p">][</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">anchor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">anchor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Store computed route</span>
+            <span class="n">routes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">route</span><span class="p">)</span>
+
+            <span class="c1"># Log the addition of the route. Note that this has to be done here since if anchor is not None,</span>
+            <span class="c1"># the resulting route might get invalidated</span>
+            <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">disp</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">],</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;tstart&#39;</span><span class="p">],</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;tend&#39;</span><span class="p">],</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">],</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]))</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># Add this combination of contacts to the r_cids set. If already present show error</span>
+            <span class="k">if</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">r_cids</span><span class="p">:</span>         
+                <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;A route from </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1"> with contacts </span><span class="si">{}</span><span class="s1"> already exists. This one is discarded&#39;</span><span class="p">,</span> <span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">])</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span> <span class="n">r_cids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">])</span>
+
+            <span class="c1"># Select the anchor and suppress it to get a new route</span>
+            <span class="n">limit_contact</span> <span class="o">=</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;limit_cid&#39;</span><span class="p">]</span>
+            <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;suppressed&#39;</span><span class="p">][</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">limit_contact</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Set the anchor contact if necessary</span>
+            <span class="k">if</span> <span class="n">limit_contact</span> <span class="o">!=</span> <span class="n">first_contact</span><span class="p">:</span>
+                <span class="n">anchor</span> <span class="o">=</span> <span class="n">first_contact</span>
+
+        <span class="c1"># Reset data for find_route (dijkstra)</span>
+        <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">][</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">]</span>  <span class="o">=</span> <span class="n">tinf</span>
+        <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">]</span>          <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">Nrows</span><span class="p">)</span>
+        <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;visited&#39;</span><span class="p">]</span>              <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">]</span><span class="o">*</span><span class="n">Nrows</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">routes</span></div>
+
+<div class="viewcode-block" id="cgr_build_route_list_slow"><a class="viewcode-back" href="../../../API.html#simulator.routers.cgr.cgr_build_route_list_slow">[docs]</a><span class="k">def</span> <span class="nf">cgr_build_route_list_slow</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">contact_plan</span><span class="p">,</span> <span class="n">relays</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_speed</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Implement the Dijkstra algorithm to find the route that delivers data the earliest</span>
+
+<span class="sd">        :param orig: Name of the node where the bundle originates (e.g. PSH)</span>
+<span class="sd">        :param dest: Name of the node where the bundle is destined for (e.g. Earth)</span>
+<span class="sd">        :param pandas.Timestamp t: Time at which the bundle needs to be routed</span>
+<span class="sd">        :param pandas.DataFrame contact_plan: Contact table</span>
+<span class="sd">        :param pandas.DataFrame range_intervals: Table with range intervals</span>
+<span class="sd">        :param tuple relays: Name of the nodes that can be used as relays to construct the route. Default is None, which</span>
+<span class="sd">                             indicates that all nodes can be relays</span>
+<span class="sd">        :param float max_speed: Max speed that a spacecraft can move in mph. Default is 125 miles/sec</span>
+<span class="sd">        :return list: List of routes. See ``find_route`` to see the information in a route</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize variables</span>
+    <span class="n">routes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">anchor</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cp</span>     <span class="o">=</span> <span class="n">contact_plan</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tinf</span>   <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">tstart</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">cp</span><span class="o">.</span><span class="n">tend</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">+</span> <span class="mi">100</span><span class="o">*</span><span class="mi">365</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span>
+    <span class="n">nodes</span>  <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">orig</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span><span class="p">))</span>
+    <span class="n">relays</span> <span class="o">=</span> <span class="n">relays</span> <span class="k">if</span> <span class="n">relays</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">nodes</span>
+    <span class="n">count</span>  <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">msg</span>    <span class="o">=</span> <span class="s1">&#39;Route </span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">: [</span><span class="si">{}</span><span class="s1">]</span><span class="se">\t</span><span class="s1">EAT=</span><span class="si">{}</span><span class="s1">, Validity=(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">), Contacts=</span><span class="si">{}</span><span class="s1">, Hops=</span><span class="si">{}</span><span class="s1">&#39;</span>
+    <span class="n">r_cids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1"># Eliminate contact with itself if it exists (needs to be done before adding -1 and -2)</span>
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">orig</span><span class="o">==</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span><span class="p">)]</span>
+
+    <span class="c1"># Add dummy initial and final contacts: (orig, dest, tstart, tend, duration, range, rate, capacity)</span>
+    <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">orig</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;tstart&#39;</span><span class="p">,</span> <span class="s1">&#39;tend&#39;</span><span class="p">,</span> <span class="s1">&#39;orig&#39;</span><span class="p">,</span> <span class="s1">&#39;dest&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Initialize necessary data structures</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">]</span>         <span class="o">=</span> <span class="n">tinf</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;owlt&#39;</span><span class="p">]</span>        <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;margin&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">owlt</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">max_speed</span><span class="o">/</span><span class="mi">186000</span><span class="p">)</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;visited&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;suppressed&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;EAT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Use dijkstra algorithm to find a route</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="n">find_route_slow</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">tinf</span><span class="p">,</span> <span class="n">relays</span><span class="p">)</span>
+
+        <span class="c1"># No more routes are available, exit</span>
+        <span class="k">if</span> <span class="n">route</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">break</span>
+
+        <span class="c1"># Fill out constant route properties</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;orig&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orig</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+
+        <span class="c1"># Initialize variables</span>
+        <span class="n">first_contact</span> <span class="o">=</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># If anchor available, use if</span>
+        <span class="k">if</span> <span class="n">anchor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">anchor</span> <span class="o">!=</span> <span class="n">first_contact</span><span class="p">:</span>
+                <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cp</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;EAT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tinf</span>
+                <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;visited&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cp</span><span class="o">.</span><span class="n">orig</span> <span class="o">!=</span> <span class="n">orig</span><span class="p">,</span> <span class="s1">&#39;suppressed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">anchor</span><span class="p">,</span> <span class="s1">&#39;suppressed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">anchor</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">continue</span>
+
+        <span class="c1"># Store computed route</span>
+        <span class="n">routes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">route</span><span class="p">)</span>
+
+        <span class="c1"># Log the addition of the route. Note that this has to be done here since if anchor is not None,</span>
+        <span class="c1"># the resulting route might get invalidated</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">disp</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">],</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;tstart&#39;</span><span class="p">],</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;tend&#39;</span><span class="p">],</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">],</span>
+                            <span class="n">route</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]))</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Add this combination of contacts to the r_cids set. If already present show error</span>
+        <span class="k">if</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">r_cids</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;A route from </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1"> with contacts </span><span class="si">{}</span><span class="s1"> already exists. This one is discarded&#39;</span><span class="p">,</span> <span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span>
+                 <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">])</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r_cids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Select the anchor and suppress it to get a new route</span>
+        <span class="n">limit_contact</span> <span class="o">=</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;limit_cid&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">limit_contact</span> <span class="o">!=</span> <span class="n">first_contact</span><span class="p">:</span> <span class="n">anchor</span> <span class="o">=</span> <span class="n">first_contact</span>
+        <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">limit_contact</span><span class="p">,</span> <span class="s1">&#39;suppressed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Reset data for find_route (dijkstra)</span>
+        <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cp</span><span class="o">.</span><span class="n">index</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;EAT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tinf</span>
+        <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">]</span>          <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;visited&#39;</span><span class="p">]</span>              <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">routes</span></div>
+
+<span class="c1"># ============================================================================================================</span>
+<span class="c1"># === FIND ONE ROUTE BETWEEN ONE ORIG AND DEST</span>
+<span class="c1"># ============================================================================================================</span>
+
+<div class="viewcode-block" id="find_route_fast"><a class="viewcode-back" href="../../../API.html#simulator.routers.cgr.find_route_fast">[docs]</a><span class="k">def</span> <span class="nf">find_route_fast</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">tinf</span><span class="p">,</span> <span class="n">relays</span><span class="p">,</span> <span class="n">root</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Implement the Dijkstra algorithm to find the route that delivers data earlier</span>
+
+<span class="sd">        .. Tip:: Dijkstra does not need the full tree to be built prior to its application. Therefore,</span>
+<span class="sd">                 the input is just the contact table and the graph is built incrementally</span>
+
+<span class="sd">        .. Tip:: To see a basic implementation of the Dijkstra algorithm in python see `here &lt;https://stackoverflow.com/questions/22897209/dijkstras-algorithm-in-python&gt;`_</span>
+<span class="sd">                 This implementation, however, takes advantage of pandas indexing mechanism to eliminate the need for any ``for`` loops inside the main ``while`` loop.</span>
+
+<span class="sd">        :param orig: Name of the node where the bundle originates (e.g. PSH)</span>
+<span class="sd">        :param dest: Name of the node where the bundle is destined for (e.g. Earth)</span>
+<span class="sd">        :param pandas.DataFrame cp: Copy of the contact table that will be modified during the Dijkstra search</span>
+<span class="sd">        :param pandas.Timestamp tinf: Timestamp that denotes infinity (by default, 10 years after any event in the contact plan table)</span>
+<span class="sd">        :param tuple relays: Names for all nodes that can be used as relays to construct routes</span>
+<span class="sd">        :param int root: Id of the root note (by default -1)</span>
+<span class="sd">        :return dict: A dictionary with the best route</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check inputs</span>
+    <span class="k">assert</span> <span class="n">orig</span> <span class="o">!=</span> <span class="n">dest</span><span class="p">,</span> <span class="s1">&#39;Trying to find a round between the same node </span><span class="si">{}</span><span class="s1">. This will make this function crash!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+
+    <span class="c1"># Initialize variables</span>
+    <span class="n">route</span>         <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">cur_idx</span>       <span class="o">=</span> <span class="n">root</span>
+    <span class="n">best_EAT</span>      <span class="o">=</span> <span class="n">tinf</span>
+    <span class="n">final_contact</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">visited_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Get information on current contact</span>
+        <span class="n">c_idx</span>  <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cur_idx</span>
+        <span class="n">c_dest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">c_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">])</span>     <span class="c1"># Avoid fancy slow indexing</span>
+        <span class="n">c_EAT</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">c_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">])</span>      <span class="c1"># Avoid fancy slow indexing</span>
+
+        <span class="c1"># Get this contact neighbours. Neighbours meet the following criteria:</span>
+        <span class="c1"># 1) The current.dest = contact.orig</span>
+        <span class="c1"># 2) The contact.dest is a node that has already been visited</span>
+        <span class="c1"># 3) The current.EAT  &lt; contact.tend (i.e. eliminate contacts that end before data arrives)</span>
+        <span class="c1"># 4) They are not suppressed or already visited</span>
+        <span class="c1"># 5) The neighbor contact&#39;s destination has relay capabilities or is the destination itself</span>
+        <span class="c1">#    (note: this is not present in the SABR specification or ION code)</span>
+        <span class="n">cids</span> <span class="o">=</span> <span class="p">(</span><span class="n">c_dest</span> <span class="o">==</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;orig&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">isin</span><span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">],</span> <span class="n">visited_nodes</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">isin</span><span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">],</span> <span class="n">relays</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dest</span><span class="p">))</span> <span class="o">&amp;</span> \
+               <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;tend&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">c_EAT</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;suppressed&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;visited&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cids</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># Compute early transmission time (ETT) and early arrival time (EAT)</span>
+            <span class="n">ETT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;tstart&#39;</span><span class="p">][</span><span class="n">cids</span><span class="p">],</span> <span class="n">c_EAT</span><span class="p">)</span>
+            <span class="n">EAT</span> <span class="o">=</span> <span class="n">ETT</span> <span class="o">+</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;owlt&#39;</span><span class="p">][</span><span class="n">cids</span><span class="p">]</span> <span class="o">+</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;margin&#39;</span><span class="p">][</span><span class="n">cids</span><span class="p">]</span>
+
+            <span class="c1"># Update the distance to candidate nodes if it is lower than</span>
+            <span class="c1"># the distance that was already available</span>
+            <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">][</span><span class="n">cids</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">EAT</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">][</span><span class="n">cids</span><span class="p">])</span>
+            <span class="n">to_update</span> <span class="o">=</span> <span class="n">cids</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">EAT</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">][</span><span class="n">to_update</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_idx</span>
+
+            <span class="c1"># Store the best path found to the final node</span>
+            <span class="n">test</span> <span class="o">=</span> <span class="n">cids</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">dest</span><span class="p">)</span>
+            <span class="n">candidates</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">][</span><span class="n">test</span><span class="p">],</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">][</span><span class="n">test</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">candidates</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">candidate_best_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">candidates</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">candidate_best</span>     <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">candidate_best_idx</span>
+                <span class="k">if</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">][</span><span class="n">candidate_best</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">best_EAT</span><span class="p">:</span>
+                    <span class="n">final_contact</span><span class="p">,</span> <span class="n">best_EAT</span> <span class="o">=</span> <span class="n">candidate_best_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">][</span><span class="n">candidate_best</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Mark the current contact as explored</span>
+        <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;visited&#39;</span><span class="p">][</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cur_idx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># To continue search, you need a node that has not been suppressed or visited,</span>
+        <span class="c1"># it is not the origin or destination, and you have found a path to it.</span>
+        <span class="n">cids</span> <span class="o">=</span> <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;suppressed&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;visited&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> \
+               <span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">best_EAT</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">cids</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># Continue search</span>
+        <span class="n">cur_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">][</span><span class="n">cids</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">][</span><span class="n">cids</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Reconstruct the path from this contact. Figure out which nodes have been visited</span>
+        <span class="c1"># so that you do not visit them again. This solves the problem of routes like N1-&gt;N2-&gt;N1-&gt;N3</span>
+        <span class="n">visited_nodes</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">cur_idx</span>
+        <span class="k">while</span> <span class="n">idx</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">c_idx</span> <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">idx</span>
+            <span class="n">visited_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">c_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">c_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">])</span>
+        <span class="n">visited_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># Compute properties about this route:</span>
+    <span class="c1"># 1) Contacts for this route</span>
+    <span class="c1"># 2) Early end = Time at which the route is not usable because one of its contacts ends</span>
+    <span class="c1"># 3) Max. capacity = min(capacity for its contacts)</span>
+    <span class="k">if</span> <span class="n">final_contact</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">contacts</span><span class="p">,</span> <span class="n">rt</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">early_end</span><span class="p">,</span> <span class="n">limit_contact</span> <span class="o">=</span> <span class="n">tinf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        <span class="n">cur_idx</span>   <span class="o">=</span> <span class="n">final_contact</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">cur_idx</span> <span class="o">==</span> <span class="n">root</span><span class="p">:</span>
+            <span class="c1"># Get contact information</span>
+            <span class="n">c_idx</span>         <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cur_idx</span>
+            <span class="n">c_name</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">c_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">c_dest</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">c_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">c_tend</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">c_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;tend&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">c_predecessor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">c_idx</span><span class="p">,</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;predecessor&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># Reconstruct route</span>
+            <span class="k">if</span> <span class="n">c_tend</span> <span class="o">&lt;</span> <span class="n">early_end</span><span class="p">:</span>
+                <span class="n">early_end</span>     <span class="o">=</span> <span class="n">c_tend</span>
+                <span class="n">limit_contact</span> <span class="o">=</span> <span class="n">cur_idx</span>
+            <span class="n">contacts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_name</span><span class="p">)</span>
+            <span class="n">rt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_dest</span><span class="p">)</span>
+            <span class="n">cur_idx</span>   <span class="o">=</span> <span class="n">c_predecessor</span>
+        <span class="n">rt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+
+        <span class="c1"># Return route as dictionary</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;orig&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">orig</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">dest</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">contacts</span><span class="p">))</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">rt</span><span class="p">))</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;tstart&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="s1">&#39;tstart&#39;</span><span class="p">][</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;tend&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">early_end</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">]</span>       <span class="o">=</span> <span class="n">best_EAT</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;limit_cid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">limit_contact</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;nhops&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">route</span>
+
+    <span class="c1"># If you reached this point, then search has ended, no route could be found</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="find_route_slow"><a class="viewcode-back" href="../../../API.html#simulator.routers.cgr.find_route_slow">[docs]</a><span class="k">def</span> <span class="nf">find_route_slow</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">tinf</span><span class="p">,</span> <span class="n">relays</span><span class="p">,</span> <span class="n">root</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Implement the Dijkstra algorithm to find the route that delivers data earlier</span>
+
+<span class="sd">        .. Tip:: Dijkstra does not need the full tree to be built prior to its application. Therefore,</span>
+<span class="sd">                 the input is just the contact table and the graph is built incrementally</span>
+
+<span class="sd">        .. Tip:: To see a basic implementation of the Dijkstra algorithm in python see `here &lt;https://stackoverflow.com/questions/22897209/dijkstras-algorithm-in-python&gt;`_</span>
+<span class="sd">                 This implementation, however, takes advantage of pandas indexing mechanism to eliminate the need for any ``for`` loops inside the main ``while`` loop.</span>
+
+<span class="sd">        :param orig: Name of the node where the bundle originates (e.g. PSH)</span>
+<span class="sd">        :param dest: Name of the node where the bundle is destined for (e.g. Earth)</span>
+<span class="sd">        :param pandas.DataFrame cp: Copy of the contact table that will be modified during the Dijkstra search</span>
+<span class="sd">        :param pandas.DataFrame ri: Copy of the range intervals table that will be modified during the Dijkstra serch</span>
+<span class="sd">        :param pandas.Timestamp tinf: Timestamp that denotes infinity (by default, 10 years after any event in the contact plan table)</span>
+<span class="sd">        :param tuple relays: Names for all nodes that can be used as relays to construct routes</span>
+<span class="sd">        :param int root: Id of the root note (by default -1)</span>
+<span class="sd">        :return dict: A dictionary with the best route</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize variables</span>
+    <span class="n">route</span>         <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">cur_idx</span>       <span class="o">=</span> <span class="n">root</span>
+    <span class="n">best_EAT</span>      <span class="o">=</span> <span class="n">tinf</span>
+    <span class="n">final_contact</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">visited_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Get A COPY of current contact</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cur_idx</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Get this contact neighbors. Neighbors meet the following criteria:</span>
+        <span class="c1"># 1) The current.dest = contact.orig</span>
+        <span class="c1"># 2) The contact.dest is a node that has already been visited</span>
+        <span class="c1"># 3) The current.EAT  &lt; contact.tend (i.e. eliminate contacts that end before data arrives)</span>
+        <span class="c1"># 4) They are not suppressed or already visited</span>
+        <span class="c1"># 5) The neighbor contact&#39;s destination has relay capabilities or is the destination itself</span>
+        <span class="c1">#    (note: this is not present in the SABR specification or ION code)</span>
+        <span class="n">cids</span> <span class="o">=</span> <span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">cp</span><span class="o">.</span><span class="n">orig</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">visited_nodes</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">relays</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">dest</span><span class="p">))</span> <span class="o">&amp;</span> \
+               <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">tend</span> <span class="o">&gt;</span> <span class="n">current</span><span class="o">.</span><span class="n">EAT</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">suppressed</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">visited</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">cids</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># Compute early transmission time (ETT) and early arrival time (EAT)</span>
+            <span class="n">ETT</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">tstart</span><span class="p">[</span><span class="n">cids</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="n">EAT</span><span class="p">))</span>
+            <span class="n">EAT</span> <span class="o">=</span> <span class="n">ETT</span> <span class="o">+</span> <span class="n">cp</span><span class="o">.</span><span class="n">owlt</span><span class="p">[</span><span class="n">cids</span><span class="p">]</span> <span class="o">+</span> <span class="n">cp</span><span class="o">.</span><span class="n">margin</span><span class="p">[</span><span class="n">cids</span><span class="p">]</span>
+
+            <span class="c1"># Update the distance to candidate nodes if it is lower than</span>
+            <span class="c1"># the distance that was already available</span>
+            <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cids</span><span class="p">,</span> <span class="s1">&#39;EAT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">EAT</span><span class="p">,</span> <span class="n">cp</span><span class="o">.</span><span class="n">EAT</span><span class="p">[</span><span class="n">cids</span><span class="p">])</span>
+            <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cids</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">EAT</span><span class="p">[</span><span class="n">cids</span><span class="p">]</span> <span class="o">==</span> <span class="n">EAT</span><span class="p">),</span> <span class="s1">&#39;predecessor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_idx</span>
+
+            <span class="c1"># Store the best path found to the final node</span>
+            <span class="n">candidates</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">EAT</span><span class="p">[</span><span class="n">cids</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">dest</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">candidates</span><span class="p">):</span>
+                <span class="n">candidate_best</span> <span class="o">=</span> <span class="n">candidates</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">cp</span><span class="o">.</span><span class="n">EAT</span><span class="p">[</span><span class="n">candidate_best</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">best_EAT</span><span class="p">:</span>
+                    <span class="n">final_contact</span><span class="p">,</span> <span class="n">best_EAT</span> <span class="o">=</span> <span class="n">candidate_best</span><span class="p">,</span> <span class="n">cp</span><span class="o">.</span><span class="n">EAT</span><span class="p">[</span><span class="n">candidate_best</span><span class="p">]</span>
+
+        <span class="c1"># Mark the current contact as explored</span>
+        <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cur_idx</span><span class="p">,</span> <span class="s1">&#39;visited&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># To continue search, you need a node that has not been suppressed or visited,</span>
+        <span class="c1"># it is not the origin or destination, and you have found a path to it.</span>
+        <span class="n">cids</span> <span class="o">=</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">suppressed</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">visited</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> \
+               <span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">EAT</span> <span class="o">&lt;</span> <span class="n">best_EAT</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">predecessor</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">cids</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># Continue search</span>
+        <span class="n">cur_idx</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">EAT</span><span class="p">[</span><span class="n">cids</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+
+        <span class="c1"># Reconstruct the path from this contact. Figure out which nodes have been visited</span>
+        <span class="c1"># so that you do not visit them again. This solves the problem of routes like N1-&gt;N2-&gt;N1-&gt;N3</span>
+        <span class="n">visited_nodes</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">cur_idx</span>
+        <span class="k">while</span> <span class="n">idx</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">visited_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">predecessor</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">visited_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">dest</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+
+    <span class="c1"># Compute properties about this route:</span>
+    <span class="c1"># 1) Contacts for this route</span>
+    <span class="c1"># 2) Early end = Time at which the route is not usable because one of its contacts ends</span>
+    <span class="k">if</span> <span class="n">final_contact</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">contacts</span><span class="p">,</span> <span class="n">rt</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">early_end</span><span class="p">,</span> <span class="n">limit_contact</span> <span class="o">=</span> <span class="n">tinf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        <span class="n">cur_idx</span>   <span class="o">=</span> <span class="n">final_contact</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">cur_idx</span> <span class="o">==</span> <span class="n">root</span><span class="p">:</span>
+            <span class="n">contact</span>   <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cur_idx</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">if</span> <span class="n">contact</span><span class="o">.</span><span class="n">tend</span> <span class="o">&lt;</span> <span class="n">early_end</span><span class="p">:</span>
+                <span class="n">early_end</span>     <span class="o">=</span> <span class="n">contact</span><span class="o">.</span><span class="n">tend</span>
+                <span class="n">limit_contact</span> <span class="o">=</span> <span class="n">cur_idx</span>
+            <span class="n">contacts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contact</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">rt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contact</span><span class="o">.</span><span class="n">dest</span><span class="p">)</span>
+            <span class="n">cur_idx</span>   <span class="o">=</span> <span class="n">contact</span><span class="o">.</span><span class="n">predecessor</span>
+        <span class="n">rt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+
+        <span class="c1"># Return route as dictionary</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;orig&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">orig</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">dest</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">contacts</span><span class="p">))</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">rt</span><span class="p">))</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;tstart&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;tstart&#39;</span><span class="p">]</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;tend&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">early_end</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;EAT&#39;</span><span class="p">]</span>       <span class="o">=</span> <span class="n">best_EAT</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;limit_cid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">limit_contact</span>
+        <span class="n">route</span><span class="p">[</span><span class="s1">&#39;nhops&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">route</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">route</span>
+
+    <span class="c1"># If you reached this point, then search has ended, no route could be found</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+<span class="c1"># ============================================================================================================</span>
+<span class="c1"># === VALIDATION: COMPARE SLOW AND FAST OUTPUTS</span>
+<span class="c1"># ============================================================================================================</span>
+
+<span class="k">def</span> <span class="nf">validate_value</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">):</span>
+        <span class="n">eq</span> <span class="o">=</span> <span class="p">(</span><span class="n">v1</span> <span class="o">-</span> <span class="n">v2</span><span class="p">)</span><span class="o">.</span><span class="n">to_timedelta64</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>  <span class="c1"># Precision of 1msec</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">str_type</span><span class="p">):</span>
+        <span class="n">eq</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">==</span> <span class="n">v2</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">Number</span><span class="p">):</span>
+        <span class="n">eq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">eq</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">validate_value</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">vv1</span><span class="p">,</span> <span class="n">vv2</span><span class="p">)</span> <span class="k">for</span> <span class="n">vv1</span><span class="p">,</span> <span class="n">vv2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot validate row </span><span class="si">{}</span><span class="s1"> of type </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">v1</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">eq</span>
+
+<span class="k">def</span> <span class="nf">validate_fast_cgr</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">ri</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">relays</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;bfs&#39;</span><span class="p">,</span> <span class="n">ncpu</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="c1"># Initialize variables</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Load old route schedule</span>
+    <span class="n">disp</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">50</span> <span class="o">+</span> <span class="s1">&#39; COMPUTING ROUTE SCHEDULE - FAST MODE &#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">Timer</span><span class="p">():</span>
+        <span class="n">slow_df</span> <span class="o">=</span> <span class="n">build_route_list</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">ri</span><span class="p">,</span> <span class="n">relays</span><span class="o">=</span><span class="n">relays</span><span class="p">,</span> <span class="n">ncpu</span><span class="o">=</span><span class="n">ncpu</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;fast&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Compute new route schedule</span>
+    <span class="n">disp</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="mi">50</span> <span class="o">+</span> <span class="s1">&#39; COMPUTING ROUTE SCHEDULE - SLOW MODE &#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">Timer</span><span class="p">():</span>
+        <span class="n">fast_df</span> <span class="o">=</span> <span class="n">build_route_list</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">ri</span><span class="p">,</span> <span class="n">relays</span><span class="o">=</span><span class="n">relays</span><span class="p">,</span> <span class="n">ncpu</span><span class="o">=</span><span class="n">ncpu</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;slow&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Compare rows</span>
+    <span class="n">disp</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">50</span> <span class="o">+</span> <span class="s1">&#39; VALIDATING ROUTE SCHEDULE - END &#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">slow_cid</span><span class="p">,</span> <span class="n">slow_row</span> <span class="ow">in</span> <span class="n">slow_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="c1"># Get this row in the fast_df</span>
+        <span class="n">fast_row</span> <span class="o">=</span> <span class="n">fast_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">slow_cid</span><span class="p">,</span> <span class="p">:]</span>        
+        
+        <span class="c1"># Compare each entry of the row</span>
+        <span class="n">equal_idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">validate_value</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">slow_row</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">slow_row</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">slow_row</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="c1"># Flag non-equal entries</span>
+        <span class="n">diff_tags</span> <span class="o">=</span> <span class="n">slow_row</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">equal_idx</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">diff_tags</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">slow_row</span><span class="p">[</span><span class="n">diff_tags</span><span class="p">],</span> <span class="n">fast_row</span><span class="p">[</span><span class="n">diff_tags</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">,</span> <span class="s1">&#39;New&#39;</span><span class="p">]</span>
+            <span class="n">diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+            
+    <span class="c1"># If the fast_df has extra more rows than the slow_df, flag them</span>
+    <span class="n">slow_idx</span><span class="p">,</span> <span class="n">fast_idx</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">slow_df</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="nb">set</span><span class="p">(</span><span class="n">fast_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">fast_cid</span> <span class="ow">in</span> <span class="p">(</span><span class="n">fast_idx</span><span class="o">-</span><span class="n">slow_idx</span><span class="p">):</span>
+        <span class="n">diff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fast_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">fast_cid</span><span class="p">],:])</span>
+                
+    <span class="k">return</span> <span class="n">diff</span><span class="p">,</span> <span class="n">fast_df</span><span class="p">,</span> <span class="n">slow_df</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Import for testing</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">build_route_list</span>
+    <span class="kn">from</span> <span class="nn">simulator.utils.basic_utils</span> <span class="k">import</span> <span class="n">disp</span><span class="p">,</span> <span class="n">read</span><span class="p">,</span> <span class="n">Timer</span><span class="p">,</span> <span class="n">warn</span>
+    <span class="kn">from</span> <span class="nn">numbers</span> <span class="k">import</span> <span class="n">Number</span>
+    <span class="kn">from</span> <span class="nn">simulator.utils.time_utils</span> <span class="k">import</span> <span class="n">str2time</span>
+
+    <span class="c1"># Load data</span>
+    <span class="n">contact_plan</span>    <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;.\Scenario 2 - Data\Scn2_contact_table.xlsx&#39;</span><span class="p">)</span>
+    <span class="n">range_intervals</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;.\Scenario 2 - Data\Scn2_range_intervals.xlsx&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Define inputs</span>
+    <span class="n">t</span>      <span class="o">=</span> <span class="n">str2time</span><span class="p">(</span><span class="s1">&#39;01-JAN-2034 00:00:00&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">-%b-%Y %H:%M:%S&#39;</span><span class="p">)</span>
+    <span class="n">nodes</span>  <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;MR1&#39;</span><span class="p">,</span><span class="s1">&#39;DSH&#39;</span><span class="p">,</span><span class="s1">&#39;MCC&#39;</span><span class="p">,</span><span class="s1">&#39;PSH&#39;</span><span class="p">,</span><span class="s1">&#39;HHC&#39;</span><span class="p">,</span><span class="s1">&#39;MMU&#39;</span><span class="p">,</span><span class="s1">&#39;EVA1&#39;</span><span class="p">,</span><span class="s1">&#39;EVA2&#39;</span><span class="p">,</span><span class="s1">&#39;MOI&#39;</span><span class="p">,</span><span class="s1">&#39;PDSR&#39;</span><span class="p">,</span><span class="s1">&#39;PEV&#39;</span><span class="p">,</span><span class="s1">&#39;PTX&#39;</span><span class="p">,</span><span class="s1">&#39;EDL-MAV&#39;</span><span class="p">,</span><span class="s1">&#39;EDL-DS&#39;</span><span class="p">)</span>
+    <span class="n">relays</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;PSH&#39;</span><span class="p">,</span> <span class="s1">&#39;DSH&#39;</span><span class="p">,</span> <span class="s1">&#39;MR1&#39;</span><span class="p">)</span>
+
+    <span class="c1"># TEST 1 - Validate CGR fast implementation</span>
+    <span class="sd">&#39;&#39;&#39;diff, fast_df, slow_df = validate_fast_cgr(contact_plan, range_intervals, t, nodes, nodes, relays, ncpu=5)</span>
+<span class="sd">    if not diff: print(&#39;Fast CGR implementation successfully validated.&#39;)</span>
+<span class="sd">    else: print(&#39;Error in CGR fast implementation, check:\n&#39;, diff)&#39;&#39;&#39;</span>
+
+    <span class="c1"># TEST 2 - Build routes between two given nodes</span>
+    <span class="n">routes</span> <span class="o">=</span> <span class="n">build_route_list</span><span class="p">(</span><span class="s1">&#39;MCC&#39;</span><span class="p">,</span> <span class="s1">&#39;PSH&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">contact_plan</span><span class="p">,</span> <span class="n">range_intervals</span><span class="p">,</span> <span class="n">relays</span><span class="o">=</span><span class="n">relays</span><span class="p">,</span> <span class="n">ncpu</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                              <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;bfs&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;slow&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">routes</span><span class="p">)</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="s1">&#39;routes 2.xlsx&#39;</span><span class="p">)</span>
+
+    
+    
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

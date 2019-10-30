@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simulator.ducts.DtnAbstractDuctLTP &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../License.html">3. Copyright and Licensing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for simulator.ducts.DtnAbstractDuctLTP</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">simulator.core.DtnSegments</span> <span class="k">import</span> <span class="n">LtpCancelSessionSegment</span>
+<span class="kn">from</span> <span class="nn">.DtnAbstractDuct</span> <span class="k">import</span> <span class="n">DtnAbstractDuct</span>
+
+<div class="viewcode-block" id="DtnAbstractDuctLTP"><a class="viewcode-back" href="../../../API.html#simulator.ducts.DtnAbstractDuctLTP.DtnAbstractDuctLTP">[docs]</a><span class="k">class</span> <span class="nc">DtnAbstractDuctLTP</span><span class="p">(</span><span class="n">DtnAbstractDuct</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Abstract LTP duct. It is subclassed by both DtnOutductLTP and DtnInductLTP</span>
+<span class="sd">        to provide the following necessary common functionality:</span>
+
+<span class="sd">        1) Requirement to re-implement ``initialize_ltp_session``, ``finalize_ltp_session``</span>
+<span class="sd">           and ``run_ltp_session``.</span>
+<span class="sd">        2) A radio to send data through a connection. The type of radio is configurable by</span>
+<span class="sd">           the user through the .yaml file.</span>
+<span class="sd">        3) A ``fail_manager`` that will redirect bundles that are not successfully delivered</span>
+<span class="sd">           by the radio to the DTN node limbo for re-rerouting</span>
+
+<span class="sd">        The core concept of LTP is a **session**, i.e. a process that will take care of sending a block</span>
+<span class="sd">        of bundles from the outduct to induct. All re-tx required for a given block are handled by</span>
+<span class="sd">        the same session. At any point in time, there can be any number of LTP sessions active</span>
+<span class="sd">        since the underlying link can have long delays and therefore you do not want to wait for a session</span>
+<span class="sd">        to end before starting another one.</span>
+
+<span class="sd">        The LTP outduct creates a new session every time a new block of bundles is created. In contrast,</span>
+<span class="sd">        an LTP induct creates a new session every time a new LTP Data Segment with a session_id not recognized</span>
+<span class="sd">        is received. At the outduct, a session ends when all the data has been sent. At the induct, a session</span>
+<span class="sd">        ends when the RA for the last RS has been received.</span>
+
+<span class="sd">        Critical to this process is having unique session ids. For this purpose, we utilize the hash function</span>
+<span class="sd">        available in Python. Note that this could result in non-unique ids due to possible hash collisions. This</span>
+<span class="sd">        is mitigated by using the hash of the hex of the memory address of the block if a hash collision</span>
+<span class="sd">        is detected. If that method fails, then an exception is raised.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">):</span>
+        <span class="c1"># Call parent constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnAbstractDuctLTP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)</span>
+
+        <span class="c1"># Counter for session ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sid_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Input queues for each LTP session</span>
+        <span class="c1"># NOTE: to know if a session is active, check if an ltp_queue exists</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># The radio for this duct</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">radio</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Call parent initialization</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnAbstractDuctLTP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">peer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Get the set of radios this duct can use</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">available_radios</span><span class="p">[</span><span class="n">radio</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_session_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
+        <span class="c1"># First attempt</span>
+        <span class="n">sid</span> <span class="o">=</span> <span class="nb">hash</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="p">:</span> <span class="k">return</span> <span class="n">sid</span>
+
+        <span class="c1"># Second attempt</span>
+        <span class="n">sid</span> <span class="o">=</span> <span class="nb">hash</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">block</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">sid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="p">:</span> <span class="k">return</span> <span class="n">sid</span>
+
+        <span class="c1"># Raise an exception</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Cannot create unique session_id at LTP duct </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">is_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">session_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span>
+
+    <span class="k">def</span> <span class="nf">total_datarate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="o">.</span><span class="n">datarate</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">radios</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;radio&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_sessions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the number of LTP session active &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ltp_sessions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; List the current active LTP sessions &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">run_ltp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">initialize_ltp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">finalize_ltp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">success_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+            <span class="c1"># Wait for a block that was successfully transmitted</span>
+            <span class="n">bundle</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">success_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="c1"># If the parent does not have a success queue, i.e. it is</span>
+            <span class="c1"># a node, you are done. This is admittedly not very neat,</span>
+            <span class="c1"># but necessary to make ParallelLTP work</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;success_queue&#39;</span><span class="p">):</span> <span class="k">continue</span>
+
+            <span class="c1"># Put in the parent&#39;s queue</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">success_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DtnAbstractDuctLTP.radio_error"><a class="viewcode-back" href="../../../API.html#simulator.ducts.DtnAbstractDuctLTP.DtnAbstractDuctLTP.radio_error">[docs]</a>    <span class="k">def</span> <span class="nf">radio_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Called from ``DtnAbstractRadio`` to signal that an error</span>
+<span class="sd">            has occurred during the transmission of a message.</span>
+
+<span class="sd">            :param Message message: The message that cause the error</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get session id</span>
+        <span class="n">sid</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">session_id</span>
+
+        <span class="c1"># Send a signal to cancel the LTP session</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_ltp_session</span><span class="p">(</span><span class="n">sid</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">fail_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+            <span class="c1"># Wait for a block that was not successfully transmitted</span>
+            <span class="c1"># by an LTP session</span>
+            <span class="n">bundle</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_limbo</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="c1"># If the parent does not have a success queue, i.e. it is</span>
+            <span class="c1"># a node, you are done. This is admittedly not very neat,</span>
+            <span class="c1"># but necessary to make ParallelLTP work</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;success_queue&#39;</span><span class="p">):</span> <span class="k">continue</span>
+
+            <span class="c1"># Put in the parent&#39;s queue</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">to_limbo</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DtnAbstractDuctLTP.cancel_ltp_session"><a class="viewcode-back" href="../../../API.html#simulator.ducts.DtnAbstractDuctLTP.DtnAbstractDuctLTP.cancel_ltp_session">[docs]</a>    <span class="k">def</span> <span class="nf">cancel_ltp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; When a radio error occurs, cancel the LTP session that was</span>
+<span class="sd">            involved in the transmission of this block. This will be caught</span>
+<span class="sd">            by the ``run_ltp_session`` in ``DtnOutductLTP`` and ``DtnInductLTP``.</span>
+
+<span class="sd">            :param session_id: Session to cancel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">do_cancel_ltp_session</span><span class="p">(</span><span class="n">session_id</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">do_cancel_ltp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">):</span>
+        <span class="c1"># Create a Cancel Session Segment to close this LTP session</span>
+        <span class="n">cancel</span> <span class="o">=</span> <span class="n">LtpCancelSessionSegment</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+
+        <span class="c1"># Put this in the queue of segments for this session</span>
+        <span class="c1"># Use expedited priority so that it gets executed immediately</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">cancel</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

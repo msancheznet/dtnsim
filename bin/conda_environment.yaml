@@ -1,0 +1,18 @@
+name: dtnsim
+channels:
+  - defaults
+dependencies:
+  - python>=3.6
+  - networkx
+  - pandas
+  - lxml
+  - pytables
+  - numpy
+  - pyyaml
+  - openpyxl
+  - xlrd
+  - pip
+  - pip:
+    - simpy
+    - pydantic==0.13
+

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>simulator.DtnSimEnvironment &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../License.html">3. Copyright and Licensing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#definitions">3.1. Definitions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#grant-of-copyright-license">3.2. Grant of Copyright License.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#grant-of-patent-license">3.3. Grant of Patent License.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#redistribution">3.4. Redistribution.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#submission-of-contributions">3.5. Submission of Contributions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#trademarks">3.6. Trademarks.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#disclaimer-of-warranty">3.7. Disclaimer of Warranty.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#limitation-of-liability">3.8. Limitation of Liability.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../License.html#accepting-warranty-or-additional-liability">3.9. Accepting Warranty or Additional Liability.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../RequestCode.html">4. Request Code</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for simulator.DtnSimEnvironment</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">Thread</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">simpy</span>
+<span class="kn">from</span> <span class="nn">simulator.utils.DtnUtils</span> <span class="k">import</span> <span class="n">load_class_dynamically</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># ============================================================================================================</span>
+<span class="c1"># === SIMULATION ENVIRONMENTS</span>
+<span class="c1"># ============================================================================================================</span>
+
+<div class="viewcode-block" id="SimEnvironment"><a class="viewcode-back" href="../../API.html#simulator.DtnSimEnvironment.SimEnvironment">[docs]</a><span class="k">class</span> <span class="nc">SimEnvironment</span><span class="p">(</span><span class="n">simpy</span><span class="o">.</span><span class="n">Environment</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="n">section_length</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">logger_name</span>    <span class="o">=</span> <span class="s1">&#39;DTN Simulation&#39;</span>
+    <span class="n">track_msg</span>      <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: Elapsed = </span><span class="si">{:.0f}</span><span class="s1">sec - </span><span class="si">{:.0f}</span><span class="s1">sec (Rate: x</span><span class="si">{:.2f}</span><span class="s1">)&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimEnvironment</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span>   <span class="o">=</span> <span class="n">configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim_id</span>   <span class="o">=</span> <span class="n">configuration</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_log</span>   <span class="o">=</span> <span class="n">configuration</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;log&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_track</span> <span class="o">=</span> <span class="n">configuration</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;track&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span>  <span class="o">=</span> <span class="n">configuration</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;monitor&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">configuration</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;outdir&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">configuration</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;logfile&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">track_simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">until</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_track</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_track_thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_track_simulation</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">until</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_track_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_track_simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">until</span><span class="p">):</span>
+        <span class="c1"># Initialize variables</span>
+        <span class="n">msg</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">track_msg</span>
+        <span class="n">elapsed</span>  <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_track_shutdown</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Sleep for a second to give time for the simulation to start</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_track_shutdown</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+            <span class="n">elapsed</span> <span class="o">+=</span> <span class="n">dt</span>
+            <span class="n">sim_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now</span>
+            <span class="k">if</span> <span class="n">until</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_track_shutdown</span> <span class="o">=</span> <span class="n">sim_time</span> <span class="o">&gt;</span> <span class="n">until</span>
+            <span class="n">sim_rate</span> <span class="o">=</span> <span class="n">sim_time</span><span class="o">/</span><span class="n">elapsed</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_id</span><span class="p">,</span> <span class="n">elapsed</span><span class="p">,</span> <span class="n">sim_time</span><span class="p">,</span> <span class="n">sim_rate</span><span class="p">))</span>
+
+<div class="viewcode-block" id="SimEnvironment.run"><a class="viewcode-back" href="../../API.html#simulator.DtnSimEnvironment.SimEnvironment.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_log_section</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;RUN SIMULATION&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">track_simulation</span><span class="p">(</span><span class="n">dt</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;track_dt&#39;</span><span class="p">],</span>
+                                  <span class="n">until</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;scenario&#39;</span><span class="p">][</span><span class="s1">&#39;until&#39;</span><span class="p">])</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;until&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;scenario&#39;</span><span class="p">][</span><span class="s1">&#39;until&#39;</span><span class="p">]</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">SimEnvironment</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">new_log_section</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;SIMULATION EXCEPTION&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">(),</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close_logger</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_track</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_track_shutdown</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_track_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">initialize_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If no need to do log, skip</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_log</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+
+        <span class="c1"># Initialize logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">logger_name</span><span class="p">)</span>
+
+        <span class="c1"># Add the file handler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fh</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fh</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fh</span><span class="p">)</span>
+
+        <span class="c1"># Start log file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_log_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">logger_name</span> <span class="o">+</span> <span class="s2">&quot; Log Start&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># If no need to do log, skip</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_log</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+        
+        <span class="c1"># Build log message</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="s1">&#39;header&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;header&#39;</span><span class="p">]</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s1">&#39;t=</span><span class="si">{0:.3f}</span><span class="s1">:</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">)</span> <span class="k">if</span> <span class="n">header</span> <span class="o">==</span> <span class="kc">True</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># If not needed, skip</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_log</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+
+        <span class="c1"># Build error log message</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="s1">&#39;header&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;header&#39;</span><span class="p">]</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s1">&#39;ERROR during simulation:</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">header</span> <span class="o">==</span> <span class="kc">True</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">new_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If not needed, skip</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_log</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+
+        <span class="c1"># Add new line</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">close_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If no need to do log, skip</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_log</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+
+        <span class="c1"># End log file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_log_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">logger_name</span> <span class="o">+</span> <span class="s2">&quot; Log End&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fh</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SimEnvironment.new_log_section"><a class="viewcode-back" href="../../API.html#simulator.DtnSimEnvironment.SimEnvironment.new_log_section">[docs]</a>    <span class="k">def</span> <span class="nf">new_log_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">new_break</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Create a new section in the logger</span>
+
+<span class="sd">            :param str title: Section title</span>
+<span class="sd">            :param bool new_break: If True, a break is added to the log file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If no need to do log, skip</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_log</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+
+        <span class="c1"># Add a new break line</span>
+        <span class="k">if</span> <span class="n">new_break</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            
+        <span class="c1"># Display section title</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">section_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="n">s</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span></div>
+        
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+    
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">finalize_simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+    
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">validate_simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;DtnSimEnvironment t=</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;DtnSimEnvironment t=</span><span class="si">{}</span><span class="s1"> at </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span></div>
+    
+<div class="viewcode-block" id="DtnSimEnviornment"><a class="viewcode-back" href="../../API.html#simulator.DtnSimEnvironment.DtnSimEnviornment">[docs]</a><span class="k">class</span> <span class="nc">DtnSimEnviornment</span><span class="p">(</span><span class="n">SimEnvironment</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Reset all static variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_static_variables</span><span class="p">()</span>
+
+        <span class="c1"># De-pack useful global arguments</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;scenario&#39;</span><span class="p">][</span><span class="s1">&#39;epoch&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seed</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;scenario&#39;</span><span class="p">][</span><span class="s1">&#39;seed&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Initialize logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_logger</span><span class="p">()</span>
+
+        <span class="c1"># Set the seed for the random numbers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_simulation_seed</span><span class="p">()</span>
+
+        <span class="c1"># Create and initialize all nodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">][</span><span class="s1">&#39;nodes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Initialize variables</span>
+            <span class="n">props</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">node</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]]</span>
+            <span class="n">clazz</span> <span class="o">=</span> <span class="n">load_class_dynamically</span><span class="p">(</span><span class="s1">&#39;simulator.nodes&#39;</span><span class="p">,</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">],</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">])</span>
+
+            <span class="c1"># Create node object</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">props</span><span class="p">)</span>
+
+        <span class="c1"># Create all connections</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connections</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">con</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">][</span><span class="s1">&#39;connections&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Initialize variables</span>
+            <span class="n">props</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">con</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]]</span>
+            <span class="n">o</span><span class="p">,</span> <span class="n">d</span>  <span class="o">=</span> <span class="n">con</span><span class="p">[</span><span class="s1">&#39;origin&#39;</span><span class="p">],</span> <span class="n">con</span><span class="p">[</span><span class="s1">&#39;destination&#39;</span><span class="p">]</span>
+            <span class="n">clazz</span> <span class="o">=</span> <span class="n">load_class_dynamically</span><span class="p">(</span><span class="s1">&#39;simulator.connections&#39;</span><span class="p">,</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">],</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">])</span>
+
+            <span class="c1"># Create connections</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">o</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">props</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="n">o</span><span class="p">]</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">props</span><span class="p">)</span>
+
+        <span class="c1"># Initialize nodes</span>
+        <span class="k">for</span> <span class="n">nid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+        <span class="c1"># Initialize connections</span>
+        <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">o</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="n">o</span><span class="p">]</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+        <span class="c1"># Now that you know the data rate of all ducts in the system, initialize the contact plan</span>
+        <span class="c1"># It is a static variable of the connection</span>
+        <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">o</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">initialize_contacts_and_ranges</span><span class="p">()</span>
+
+        <span class="c1"># Initialize all routers. This just copies the contact plan and therefore can only be done</span>
+        <span class="c1"># after it has been initialized.</span>
+        <span class="k">for</span> <span class="n">nid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span><span class="o">.</span><span class="n">initialize_router</span><span class="p">()</span>
+
+        <span class="c1"># Flag the reports that need to be generated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;reports&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;reports&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Variable to store all results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">initialize_contacts_and_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Initialize paths</span>
+        <span class="n">indir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;indir&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contact_file</span> <span class="o">=</span> <span class="n">indir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;contacts&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ranges_file</span>  <span class="o">=</span> <span class="n">indir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;ranges&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">set_simulation_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">:</span> <span class="k">return</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Seed for simulation = </span><span class="si">{self.seed}</span><span class="s1">.&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">finalize_simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_logger</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># If the results are already available, return them</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">:</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span>
+
+        <span class="c1"># Initialize variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Collect all the reports</span>
+        <span class="k">for</span> <span class="n">report</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;reports&#39;</span><span class="p">]:</span>
+            <span class="c1"># Create the report</span>
+            <span class="n">clazz</span>  <span class="o">=</span> <span class="n">load_class_dynamically</span><span class="p">(</span><span class="s1">&#39;simulator.reports&#39;</span><span class="p">,</span> <span class="n">report</span><span class="p">,</span> <span class="n">report</span><span class="p">)</span>
+            <span class="n">report</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># If this report already exists, raise error</span>
+            <span class="k">if</span> <span class="n">report</span><span class="o">.</span><span class="n">alias</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{report.alias}</span><span class="s1"> already in results&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Store the report</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="n">report</span><span class="o">.</span><span class="n">alias</span><span class="p">]</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="c1"># Compose and return result</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span>
+
+    <span class="k">def</span> <span class="nf">validate_simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Format validation portion of log file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_log_section</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;VALIDATION RESULTS&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get the simulation results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finalize_simulation</span><span class="p">(</span><span class="n">close_logger</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Perform validation process</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_sent</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_arrived</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_dropped</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_stored</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_lost</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_arrived_bundles</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_standard_data_volume</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_critical_data_volume</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_expected_data_volume</span><span class="p">()</span> <span class="o">|</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_validate_num_bundles_end</span><span class="p">()</span>
+
+        <span class="c1"># Display warning if error detected</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span> <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Simulation did not pass all tests. See log file for details&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="ow">not</span> <span class="n">error</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_validate_sent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnSentBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Perform check</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;sent&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span>
+
+        <span class="c1"># Display error</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No bundles were ever sent.&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>     <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Sent bundles test successfully passed.&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">error</span>
+
+    <span class="k">def</span> <span class="nf">_validate_arrived</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnArrivedBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Perform check</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;arrived&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span>
+
+        <span class="c1"># Display error</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No bundles were received at destination.&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Received bundles test successfully passed.&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">error</span>
+
+    <span class="k">def</span> <span class="nf">_validate_dropped</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnDroppedBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Get report data</span>
+        <span class="n">dropped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;dropped&#39;</span><span class="p">]</span>
+
+        <span class="c1"># If no bundles dropped, pass test</span>
+        <span class="k">if</span> <span class="n">dropped</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Dropped bundles test successfully passed.&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Find the non-critical data that was dropped</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">dropped</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dropped</span><span class="o">.</span><span class="n">critical</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;&#39;dropped&#39; should be empty but holds:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_validate_stored</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnStoredBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Get report data</span>
+        <span class="n">stored</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;stored&#39;</span><span class="p">]</span>
+
+        <span class="c1"># If stored is not empty, pass test</span>
+        <span class="k">if</span> <span class="n">stored</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Stored bundles test successfully passed.&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># If stored is not empty, then  error</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Some bundles are still stored in DTN nodes:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">stored</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_validate_lost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnConnLostBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Get report data</span>
+        <span class="n">lost</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;lost&#39;</span><span class="p">]</span>
+
+        <span class="c1"># If stored is not empty, pass test</span>
+        <span class="k">if</span> <span class="n">lost</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Lost bundles test successfully passed.&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># If stored is not empty, then  error</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;&#39;lost&#39; should be empty by holds:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">lost</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_validate_arrived_bundles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnArrivedBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="ow">or</span> \
+           <span class="s1">&#39;DtnSentBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Get report data</span>
+        <span class="n">arrived</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;arrived&#39;</span><span class="p">]</span>
+        <span class="n">sent</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;sent&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Get the list of bids that were transmitted</span>
+        <span class="n">s_bids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">sent</span><span class="o">.</span><span class="n">bid</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">sent</span><span class="o">.</span><span class="n">empty</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Get the list of bids that were received</span>
+        <span class="n">a_bids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">arrived</span><span class="o">.</span><span class="n">bid</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">arrived</span><span class="o">.</span><span class="n">empty</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Perform check - See how many bids never arrived</span>
+        <span class="n">diff</span>  <span class="o">=</span> <span class="n">s_bids</span> <span class="o">-</span> <span class="n">a_bids</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+
+        <span class="c1"># Display log message</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Bundles </span><span class="si">{}</span><span class="s1"> do not arrive.&#39;</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;All bundle Ids where accounted for.&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">error</span>
+
+    <span class="k">def</span> <span class="nf">_validate_standard_data_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnArrivedBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="ow">or</span> \
+           <span class="s1">&#39;DtnSentBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Get report data</span>
+        <span class="n">arrived</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;arrived&#39;</span><span class="p">]</span>
+        <span class="n">sent</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;sent&#39;</span><span class="p">]</span>
+
+        <span class="c1"># If nothing was sent or received, error</span>
+        <span class="k">if</span> <span class="n">sent</span><span class="o">.</span><span class="n">empty</span> <span class="ow">or</span> <span class="n">arrived</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Non-critical data volume test skipped&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Eliminate critical data</span>
+        <span class="n">sent</span>    <span class="o">=</span> <span class="n">sent</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sent</span><span class="o">.</span><span class="n">critical</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">arrived</span> <span class="o">=</span> <span class="n">arrived</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">arrived</span><span class="o">.</span><span class="n">critical</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Compute transmitted and received data volume per flow</span>
+        <span class="n">tx_dv</span> <span class="o">=</span> <span class="n">sent</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;fid&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">rx_dv</span> <span class="o">=</span> <span class="n">arrived</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;fid&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># Perform check. Inspired by numpy&#39;s &quot;allclose&quot; function</span>
+        <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="mf">1e-3</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tx_dv</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">rx_dv</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">atol</span> <span class="o">+</span> <span class="n">rtol</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tx_dv</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">ok</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="c1"># Check whether some flows had different transmitted and received data volume. If so, data is being lost during the simulation</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;The following non-critical flows received a data volume that is &#39;</span>
+                       <span class="s1">&#39;different from the transmitted data volume:&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">dv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tx_dv</span><span class="p">,</span> <span class="n">rx_dv</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">dv</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TxDataVolume&#39;</span><span class="p">,</span> <span class="s1">&#39;RxDataVolume&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">ok</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="p">:],</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Non-critical data volume test successfully passed.&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">error</span>
+
+    <span class="k">def</span> <span class="nf">_validate_critical_data_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnArrivedBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="ow">or</span> \
+           <span class="s1">&#39;DtnSentBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Get report data</span>
+        <span class="n">arrived</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;arrived&#39;</span><span class="p">]</span>
+        <span class="n">sent</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;sent&#39;</span><span class="p">]</span>
+
+        <span class="c1"># If nothing was sent or received, error</span>
+        <span class="k">if</span> <span class="n">sent</span><span class="o">.</span><span class="n">empty</span> <span class="ow">or</span> <span class="n">arrived</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Critical data volume test skipped&#39;</span><span class="p">);</span> <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="c1"># Eliminate non-critical data</span>
+        <span class="n">sent</span>    <span class="o">=</span> <span class="n">sent</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sent</span><span class="o">.</span><span class="n">critical</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">arrived</span> <span class="o">=</span> <span class="n">arrived</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">arrived</span><span class="o">.</span><span class="n">critical</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># Compute transmitted and received data volume per flow</span>
+        <span class="n">tx_dv</span> <span class="o">=</span> <span class="n">sent</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;fid&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">rx_dv</span> <span class="o">=</span> <span class="n">arrived</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;fid&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># Compute the ration of rx_data_vol/tx_data_vol</span>
+        <span class="n">mult</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">tx_dv</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">rx_dv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="c1"># Perform check.</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">mult</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+
+        <span class="c1"># Display error message if necessary</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;The following critical flows did not receive all received data volume:&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">dv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tx_dv</span><span class="p">,</span> <span class="n">rx_dv</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">dv</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TxDataVolume&#39;</span><span class="p">,</span> <span class="s1">&#39;RxDataVolume&#39;</span><span class="p">]</span>
+            <span class="n">err_dv</span>     <span class="o">=</span> <span class="n">dv</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mult</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">err_dv</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Critical data volume test successfully passed.&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Display informational message about critical data volume</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Informational data on critical data flows. Data volume multiplier:&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="s1">&#39;x</span><span class="si">{:.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mult</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;Multiplier&#39;</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_validate_expected_data_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnSentBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Initialize variables</span>
+        <span class="n">dv1</span><span class="p">,</span> <span class="n">dv2</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+
+        <span class="c1"># Iterate over all generators in the simulation</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">gid</span><span class="p">,</span> <span class="n">gen</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">generators</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">dv1</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">predicted_data_vol</span><span class="p">()</span>
+                <span class="n">dv2</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">generated_data_vol</span><span class="p">()</span>
+
+        <span class="c1"># Compute the total data volume in [Tbit]</span>
+        <span class="n">tdv1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dv1</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">/</span><span class="mf">1e12</span>
+        <span class="n">tdv2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dv2</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">/</span><span class="mf">1e12</span>
+
+        <span class="c1"># Perform check</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">tdv1</span><span class="p">,</span> <span class="n">tdv2</span><span class="p">)</span>
+
+        <span class="c1"># Display error message if necessary</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;The predicted data volume is </span><span class="si">{:.6f}</span><span class="s1">Tbit&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;The generated data volume is </span><span class="si">{:.6f}</span><span class="s1">Tbit&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;They should match. Differences in flows are as follows:&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Predicted: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dv1</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Predicted: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dv2</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Expected data volume test successfully passed.&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Finish test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">error</span>
+
+    <span class="k">def</span> <span class="nf">_validate_num_bundles_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the required report was not collected, skip</span>
+        <span class="k">if</span> <span class="s1">&#39;DtnArrivedBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="ow">or</span> \
+           <span class="s1">&#39;DtnSentBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="ow">or</span> \
+           <span class="s1">&#39;DtnConnLostBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="ow">or</span> \
+           <span class="s1">&#39;DtnDroppedBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span> <span class="ow">or</span> \
+           <span class="s1">&#39;DtnStoredBundlesReport&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reports</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Get report data</span>
+        <span class="n">arrived</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;arrived&#39;</span><span class="p">]</span>
+        <span class="n">dropped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;dropped&#39;</span><span class="p">]</span>
+        <span class="n">stored</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;stored&#39;</span><span class="p">]</span>
+        <span class="n">sent</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;sent&#39;</span><span class="p">]</span>
+        <span class="n">lost</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_results</span><span class="p">[</span><span class="s1">&#39;lost&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Compute number of bundles</span>
+        <span class="n">n1</span> <span class="o">=</span> <span class="n">sent</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Compute number of bundles that arrive, are dropped, lost or stored</span>
+        <span class="n">n2</span> <span class="o">=</span> <span class="n">arrived</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dropped</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> \
+             <span class="n">lost</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">stored</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Perform check (because of bundle fragmentation and critical routers</span>
+        <span class="c1"># policy, the number of bundles at end will almost certainly be larger</span>
+        <span class="c1"># that the number of bundles sent)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">&gt;</span> <span class="n">n2</span>
+
+        <span class="c1"># Display error message if necessary</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.0f}</span><span class="s1"> bundles were sent, but </span><span class="si">{:.0f}</span><span class="s1"> bundles were either dropped,&#39;</span>
+                       <span class="s1">&#39;arrived, lost or stored. Where are the rest?&#39;</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;&quot;Num. bundles at end&quot; test successfully passed.&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_line</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">error</span>
+
+<div class="viewcode-block" id="DtnSimEnviornment.reset_static_variables"><a class="viewcode-back" href="../../API.html#simulator.DtnSimEnvironment.DtnSimEnviornment.reset_static_variables">[docs]</a>    <span class="k">def</span> <span class="nf">reset_static_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; At the beginning of a simulation, static variables need to be reset</span>
+<span class="sd">            because they won&#39;t automatically be garbage collected. Therefore, if</span>
+<span class="sd">            you ran two simulations with different contact plans in the same Python</span>
+<span class="sd">            process, the second time you would not be loading the new contact plan</span>
+
+<span class="sd">            To see an example of such a situation look at the available tests. ``test_8``</span>
+<span class="sd">            has a different contact plan that the rest</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">simulator.connections.DtnScheduledConnection</span> <span class="k">import</span> <span class="n">DtnScheduledConnection</span>
+        <span class="n">DtnScheduledConnection</span><span class="o">.</span><span class="n">contacts_df</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">DtnScheduledConnection</span><span class="o">.</span><span class="n">ranges_df</span>   <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="kn">from</span> <span class="nn">simulator.routers.DtnCGRouter</span> <span class="k">import</span> <span class="n">DtnCGRouter</span>
+        <span class="n">DtnCGRouter</span><span class="o">.</span><span class="n">_contacts_df</span> <span class="o">=</span> <span class="kc">None</span>         <span class="c1"># Dataframe</span>
+        <span class="n">DtnCGRouter</span><span class="o">.</span><span class="n">_ranges_df</span>   <span class="o">=</span> <span class="kc">None</span>         <span class="c1"># Dataframe</span>
+        <span class="n">DtnCGRouter</span><span class="o">.</span><span class="n">_all_routes</span>   <span class="o">=</span> <span class="kc">None</span>        <span class="c1"># Dictionary</span>
+        <span class="n">DtnCGRouter</span><span class="o">.</span><span class="n">_all_contacts</span> <span class="o">=</span> <span class="kc">None</span>        <span class="c1"># Dictionary indexed by contact id</span>
+        <span class="n">DtnCGRouter</span><span class="o">.</span><span class="n">_all_ranges</span>   <span class="o">=</span> <span class="kc">None</span>        <span class="c1"># Dictionary indexed by contact id</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;DtnSimEnvironment t=</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">)</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simulator.nodes.DtnOverbookeableQueue &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../License.html">3. Copyright and Licensing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for simulator.nodes.DtnOverbookeableQueue</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">simulator.core.DtnLock</span> <span class="k">import</span> <span class="n">DtnLock</span>
+<span class="kn">from</span> <span class="nn">simulator.core.DtnCore</span> <span class="k">import</span> <span class="n">Simulable</span>
+<span class="kn">from</span> <span class="nn">simulator.core.DtnBundle</span> <span class="k">import</span> <span class="n">critical_priority</span><span class="p">,</span> <span class="n">bulk_priority</span>
+<span class="kn">from</span> <span class="nn">simulator.core.DtnPriorityQueue</span> <span class="k">import</span> <span class="n">DtnPriorityQueue</span>
+
+<div class="viewcode-block" id="DtnLockeablePriorityQueue"><a class="viewcode-back" href="../../../API.html#simulator.nodes.DtnOverbookeableQueue.DtnLockeablePriorityQueue">[docs]</a><span class="k">class</span> <span class="nc">DtnLockeablePriorityQueue</span><span class="p">(</span><span class="n">Simulable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Implements the locking mechanism for when a contact is not available &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">monitor</span>
+
+        <span class="c1"># Store the node that contains this manager, it is a node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+
+        <span class="c1"># Create a priority queue for this manager</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">DtnPriorityQueue</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+
+        <span class="c1"># Create the critical and bulk priority levels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">new_priority_level</span><span class="p">(</span><span class="n">critical_priority</span><span class="p">)</span>    <span class="c1"># Critical</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">new_priority_level</span><span class="p">(</span><span class="n">bulk_priority</span><span class="p">)</span>  <span class="c1"># Bulk</span>
+
+        <span class="c1"># Create a lock. When closed, no elements can be taken from the queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">DtnLock</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+
+        <span class="c1"># Acquire the key initially, i.e. close the door</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="p">(</span><span class="s1">&#39;Gate is closed&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Total number of bits accumulated in the queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backlog</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="c1"># If no need to monitor, return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+
+        <span class="c1"># Initialize variables for monitoring the gate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_times</span>    <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_times</span>   <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">is_alive</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stored</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">stored</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">items</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rt_record</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">):</span>
+        <span class="c1"># Log the arrival</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> with priority </span><span class="si">{}</span><span class="s1"> is put into the manager </span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span>
+                  <span class="n">rt_record</span><span class="o">.</span><span class="n">bundle</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">neighbor</span><span class="p">)</span>
+
+        <span class="c1"># Add this bundle data volume to the backlog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backlog</span> <span class="o">+=</span> <span class="n">rt_record</span><span class="o">.</span><span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span>
+
+        <span class="c1"># Put in the queue</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">rt_record</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">where</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Wait until there is something to take out</span>
+        <span class="n">rt_record</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="c1"># Log the departure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> is retrieved from the manager&#39;</span><span class="p">,</span> <span class="n">rt_record</span><span class="o">.</span><span class="n">bundle</span><span class="p">)</span>
+
+        <span class="c1"># Subtract this bundle data volume from the backlog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backlog</span> <span class="o">-=</span> <span class="n">rt_record</span><span class="o">.</span><span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span>
+
+        <span class="k">return</span> <span class="n">rt_record</span>
+
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">monitor_gate_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">monitor_gate_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitor</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DtnOverbookeableQueue"><a class="viewcode-back" href="../../../API.html#simulator.nodes.DtnOverbookeableQueue.DtnOverbookeableQueue">[docs]</a><span class="k">class</span> <span class="nc">DtnOverbookeableQueue</span><span class="p">(</span><span class="n">DtnLockeablePriorityQueue</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Implements the overbooking mechanism &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+
+        <span class="c1"># Data rate of the output of this queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_rate</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Capacity counter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Time of next closing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_close</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">capacity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If the gate is already closed, just return counter</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_close</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span>
+
+        <span class="c1"># The gate is opened, so capacity is equal to min between</span>
+        <span class="c1"># the capacity that is left from the time the previous bundle</span>
+        <span class="c1"># arrived, and the capacity left in the current contact</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_rate</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">next_close</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">))</span>
+
+    <span class="nd">@capacity</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">capacity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_capacity</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rt_record</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">):</span>
+        <span class="c1"># Initialize variables</span>
+        <span class="n">bundle</span> <span class="o">=</span> <span class="n">rt_record</span><span class="o">.</span><span class="n">bundle</span>
+
+        <span class="c1"># If there is enough capacity left in this contact, just add the bundle to the queue</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">&gt;</span> <span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">put_in_queue</span><span class="p">(</span><span class="n">rt_record</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">where</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">()</span>
+
+        <span class="c1"># If not enough capacity and this bundle is non-critical, then it needs</span>
+        <span class="c1"># to be re-routed. Return False to indicate that it is not accepted here</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bundle</span><span class="o">.</span><span class="n">critical</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">rt_record</span><span class="p">,)</span>
+
+        <span class="c1"># Figure out how many non-critical bundles you need to remove to make</span>
+        <span class="c1"># room for this bundle. If you cannot make room for this bundle, removed = ()</span>
+        <span class="n">removed</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_room</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+
+        <span class="c1"># If success is indicated, put the bundle in</span>
+        <span class="k">if</span> <span class="n">removed</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">put_in_queue</span><span class="p">(</span><span class="n">rt_record</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">where</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">removed</span>
+
+        <span class="c1"># If you reach this point, you where not able to make room for this bundle.</span>
+        <span class="c1"># Therefore, trigger re-routing</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">rt_record</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="nf">put_in_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rt_record</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">):</span>
+        <span class="c1"># Subtract capacity from the contact</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">-=</span> <span class="n">rt_record</span><span class="o">.</span><span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span>
+
+        <span class="c1"># If capacity goes to negative, raise error</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Capacity for DtnOverbookeableQueue is &lt; 0&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Trigger the put operation</span>
+        <span class="k">yield from</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">rt_record</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">where</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_room</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="p">):</span>
+        <span class="c1"># If the bulk priority queue is empty, there is no extra room</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="k">return</span> <span class="p">()</span>
+
+        <span class="c1"># Get all items in the bulk priority queue</span>
+        <span class="n">blk_items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Initialize variables</span>
+        <span class="n">room</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">blk_items</span><span class="p">)</span>
+
+        <span class="c1"># Iterate over bulk items to see how many do you need</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+            <span class="c1"># Count room by taking one out (NOTE: An item contains a rt_record)</span>
+            <span class="n">room</span> <span class="o">+=</span> <span class="n">blk_items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span>
+
+            <span class="c1"># If this is the last bulk bundle, break</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span> <span class="k">break</span>
+
+            <span class="c1"># If you already have enough room, break</span>
+            <span class="k">if</span> <span class="n">room</span> <span class="o">&gt;=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span><span class="p">:</span> <span class="k">break</span>
+
+            <span class="c1"># Increment the number of bundles to pop</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># If not enough room is available, fail.</span>
+        <span class="k">if</span> <span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span> <span class="o">&gt;</span> <span class="n">room</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">:</span> <span class="k">return</span> <span class="p">()</span>
+
+        <span class="c1"># Gather the list of bundles to remove (always from the bulk queue)</span>
+        <span class="c1"># NOTE 1: Popleft always from bulk queue</span>
+        <span class="c1"># NOTE 2: DO NOT use list comprehension with yields from inside!</span>
+        <span class="n">removed</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">rt_record</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">removed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rt_record</span><span class="p">)</span>
+
+        <span class="c1"># Add capacity back to the queue for the room you just made</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">removed</span><span class="p">)</span>
+
+        <span class="c1"># Return list of bulk bundles to be removed</span>
+        <span class="k">return</span> <span class="n">removed</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

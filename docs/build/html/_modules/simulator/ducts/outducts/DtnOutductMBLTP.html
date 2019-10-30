@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simulator.ducts.outducts.DtnOutductMBLTP &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../License.html">3. Copyright and Licensing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for simulator.ducts.outducts.DtnOutductMBLTP</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">simulator.core.DtnPriorityQueue</span> <span class="k">import</span> <span class="n">DtnPriorityQueue</span>
+<span class="kn">from</span> <span class="nn">simulator.core.DtnSegments</span> <span class="k">import</span> <span class="n">LtpDataSegment</span>
+<span class="kn">from</span> <span class="nn">simulator.core.DtnSegments</span> <span class="k">import</span> <span class="n">LtpReportAcknowledgementSegment</span>
+<span class="kn">from</span> <span class="nn">simulator.ducts.DtnAbstractDuctMBLTP</span> <span class="k">import</span> <span class="n">DtnAbstractDuctMBLTP</span>
+<span class="kn">from</span> <span class="nn">simulator.utils.math_utils</span> <span class="k">import</span> <span class="n">union_intervals</span><span class="p">,</span> <span class="n">xor_intervals</span>
+
+<div class="viewcode-block" id="DtnOutductMBLTP"><a class="viewcode-back" href="../../../../API.html#simulator.ducts.outducts.DtnOutductMBLTP.DtnOutductMBLTP">[docs]</a><span class="k">class</span> <span class="nc">DtnOutductMBLTP</span><span class="p">(</span><span class="n">DtnAbstractDuctMBLTP</span><span class="p">):</span>
+    <span class="n">duct_type</span> <span class="o">=</span> <span class="s1">&#39;outduct&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">):</span>
+        <span class="c1"># Call parent constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnOutductMBLTP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)</span>
+
+        <span class="c1"># Checkpoint counter to create unique checkpoints per block</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_counter</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Stores current block, segments and checkpoint under transmission</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block</span>      <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stored</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">({</span><span class="n">b</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">stored</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bands</span><span class="p">})</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;where&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;radio&#39;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">sid</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">dff</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">stored</span>
+            <span class="k">if</span> <span class="n">dff</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="n">dff</span><span class="p">[</span><span class="s1">&#39;where&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;LTP session </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sid</span><span class="p">)</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">sid</span><span class="p">]</span> <span class="o">=</span> <span class="n">dff</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">d</span><span class="p">),</span> <span class="n">df</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span> <span class="k">else</span> <span class="n">df</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">bands</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">agg_size_limit</span><span class="o">=</span><span class="mf">1e9</span><span class="p">,</span> <span class="n">agg_time_limit</span><span class="o">=</span><span class="mf">1e9</span><span class="p">,</span> <span class="n">segment_size</span><span class="o">=</span><span class="mf">8e6</span><span class="p">,</span>
+                   <span class="n">checkpoint_timer</span><span class="o">=</span><span class="mf">1e10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Call parent initialization</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnOutductMBLTP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">peer</span><span class="p">,</span> <span class="n">bands</span><span class="o">=</span><span class="n">bands</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># The aggregation size and time limits to construct a bundle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">agg_size_limit</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">agg_size_limit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">agg_time_limit</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">agg_time_limit</span><span class="p">)</span>
+
+        <span class="c1"># The LTP segment size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segment_size</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">segment_size</span><span class="p">)</span>
+
+        <span class="c1"># Checkpoint timer. How long to wait until you resend the checkpoint segment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_timer</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">checkpoint_timer</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DtnOutductMBLTP.run"><a class="viewcode-back" href="../../../../API.html#simulator.ducts.outducts.DtnOutductMBLTP.DtnOutductMBLTP.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Creates an LTP block from a set of bundles and sends them. This is the same</span>
+<span class="sd">            as for a normal LTP outduct</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Initialize variables</span>
+        <span class="n">cur_block_size</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">last_block_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">cur_block</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+            <span class="c1"># Wait until there is something to transmit</span>
+            <span class="n">bundle</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="c1"># Add bundle to block</span>
+            <span class="n">cur_block</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+
+            <span class="c1"># Compute total size of this block and the time since last block was issued</span>
+            <span class="n">cur_block_size</span> <span class="o">+=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">data_vol</span>  <span class="c1"># bits</span>
+            <span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="n">last_block_time</span>
+
+            <span class="c1"># If the aggregation size limit has not been exceeded, continue</span>
+            <span class="k">if</span> <span class="n">cur_block_size</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_size_limit</span> <span class="ow">and</span> <span class="n">delta_t</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_time_limit</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Transform block to tuple to make it hashable. Also, from now on it should not</span>
+            <span class="c1"># change anymore</span>
+            <span class="n">cur_block</span>  <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cur_block</span><span class="p">)</span>
+            <span class="n">session_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session_id</span><span class="p">(</span><span class="n">cur_block</span><span class="p">)</span>
+
+            <span class="c1"># Initialize an LTP session to transmit this block</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialize_ltp_session</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">cur_block</span><span class="p">,</span> <span class="n">cur_block_size</span><span class="p">)</span>
+
+            <span class="c1"># Reset block counters</span>
+            <span class="n">cur_block_size</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">last_block_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">cur_block</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+    <span class="k">def</span> <span class="nf">initialize_ltp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="c1"># Store the block and create an acknowledgement queue for that session</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span>      <span class="o">=</span> <span class="n">block</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">DtnPriorityQueue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
+
+        <span class="c1"># Initialize the checkpoint counter for this session. All checkpoints</span>
+        <span class="c1"># must have a unique value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_counter</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Start the process for managing this LTP session</span>
+        <span class="c1"># Note: This is a non-blocking call since you can have multiple LTP sessions</span>
+        <span class="c1">#       running at the same time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_ltp_session</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">finalize_ltp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">):</span>
+        <span class="c1"># Delete global variables for this session</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_counter</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+
+        <span class="c1"># Return the block in case you have to put it to the limbo</span>
+        <span class="c1"># because this session failed</span>
+        <span class="k">return</span> <span class="n">block</span>
+
+    <span class="k">def</span> <span class="nf">run_ltp_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="c1"># Initialize variables</span>
+        <span class="n">acked</span>   <span class="o">=</span> <span class="mf">0.0</span>             <span class="c1"># Number of bits in this block acknowledged</span>
+        <span class="n">reports</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>           <span class="c1"># Report segments seen during this LTP session</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>           <span class="c1"># If True, then LTP succeeded in sending the entire block</span>
+
+        <span class="c1"># If this flag is true, then proceed with sending the segments. The first time around</span>
+        <span class="c1"># this is always true</span>
+        <span class="n">do_send</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Create initial list of segment to transmit</span>
+        <span class="n">segments</span><span class="p">,</span> <span class="n">checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_new_block_segment</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+
+        <span class="c1"># Store the current checkpoint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">checkpoint</span>
+
+        <span class="c1"># Run until all bits in this block have been acknowledged</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+            <span class="c1"># If you have permission to send, go ahead and do it</span>
+            <span class="k">if</span> <span class="n">do_send</span><span class="p">:</span>
+                <span class="c1"># Start transmitting all segments</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_through_all</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+                <span class="c1"># Start the timer for the checkpoint report receive</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_checkpoint_timer</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">))</span>
+
+                <span class="c1"># Mark do_send as false, to avoid re-sending these segments if the report</span>
+                <span class="c1"># segment has errors</span>
+                <span class="n">do_send</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="c1"># Wait until you get a report segment. Note that this implementation, waiting</span>
+            <span class="c1"># for the RS here is representative **only** of the deferred-ack mode</span>
+            <span class="n">report</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="c1"># Check if the report received is correct. If it is not, then go back to waiting for</span>
+            <span class="c1"># report segment but do not re-send the segments (you have already done it)</span>
+            <span class="k">if</span> <span class="n">report</span><span class="o">.</span><span class="n">has_errors</span><span class="p">:</span> <span class="k">continue</span>
+
+            <span class="c1"># If this is a Cancel Segment report, then exit</span>
+            <span class="k">if</span> <span class="n">report</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;CS&#39;</span><span class="p">:</span> <span class="k">break</span>
+
+            <span class="c1"># If this report segment was already received, you are done. Otherwise, mark it</span>
+            <span class="c1"># as already seen</span>
+            <span class="k">if</span> <span class="n">report</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">reports</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="n">reports</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">report</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+            <span class="c1"># Acknowledge report before checking if you have seen it since this can indicate</span>
+            <span class="c1"># that the previous report acknowledgement was lost</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acknowledge_report</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">report</span><span class="p">)</span>
+
+            <span class="c1"># Compute the total data volume acknowledged by this report. Note that you could</span>
+            <span class="c1"># receive a report that acks less data than another that arrived before</span>
+            <span class="n">acked</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">acked</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_report</span><span class="p">(</span><span class="n">report</span><span class="p">))</span>
+
+            <span class="c1"># If the total number of bytes acknowledged equals the block size, you are done</span>
+            <span class="k">if</span> <span class="n">acked</span> <span class="o">&gt;=</span> <span class="n">size</span><span class="p">:</span> <span class="n">success</span> <span class="o">=</span> <span class="kc">True</span><span class="p">;</span> <span class="k">break</span>
+
+            <span class="c1"># Create segments to transmit because of this report</span>
+            <span class="n">segments</span><span class="p">,</span> <span class="n">checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_missing_block_segments</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">report</span><span class="p">)</span>
+
+            <span class="c1"># Update the current checkpoint</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">checkpoint</span>
+
+            <span class="c1"># Mark do_send as True since you have new segments to send</span>
+            <span class="n">do_send</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Tear down this LTP session</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalize_ltp_session</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+
+        <span class="c1"># If you succeeded, you are done</span>
+        <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">bundle</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">success_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># If this LTP session did not succeed, send bundles to node&#39;s limbo</span>
+        <span class="k">for</span> <span class="n">bundle</span> <span class="ow">in</span> <span class="n">block</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_limbo</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">acknowledge_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">report</span><span class="p">):</span>
+        <span class="c1"># Create the acknowledge report</span>
+        <span class="n">segment</span> <span class="o">=</span> <span class="n">LtpReportAcknowledgementSegment</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">report</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="c1"># Send for transmission</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_through_all</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report</span><span class="p">):</span>
+        <span class="c1"># Claims have already been run through the union_set_intervals</span>
+        <span class="c1"># at the induct. Just return the data volume</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">claim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">claim</span> <span class="ow">in</span> <span class="n">report</span><span class="o">.</span><span class="n">claims</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_new_block_segment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="c1"># Compute number of segments to send block</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">size</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_size</span><span class="p">))</span>
+
+        <span class="c1"># Create new segments</span>
+        <span class="n">to_tx</span> <span class="o">=</span> <span class="p">[</span><span class="n">LtpDataSegment</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">i</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_size</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
+
+        <span class="c1"># Mark the last one as a checkpoint</span>
+        <span class="n">to_tx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_checkpoint_id</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+
+        <span class="c1"># Return segments and checkpoint</span>
+        <span class="k">return</span> <span class="n">to_tx</span><span class="p">,</span> <span class="n">to_tx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_missing_block_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">report</span><span class="p">):</span>
+        <span class="c1"># Compute claims intervals</span>
+        <span class="n">offset</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">report</span><span class="o">.</span><span class="n">claims</span><span class="p">)</span>
+
+        <span class="c1"># Compute start and end of intervals</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+        <span class="n">end</span>   <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+
+        <span class="c1"># Compute which parts of the block are missing</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="n">xor_intervals</span><span class="p">(</span><span class="n">report</span><span class="o">.</span><span class="n">lower_bnd</span><span class="p">,</span> <span class="n">report</span><span class="o">.</span><span class="n">upper_bnd</span><span class="p">,</span>
+                                <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">do_union</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Initialize variables</span>
+        <span class="n">to_tx</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Create new segments</span>
+        <span class="k">for</span> <span class="n">int_s</span><span class="p">,</span> <span class="n">int_e</span> <span class="ow">in</span> <span class="n">missing</span><span class="p">:</span>
+            <span class="c1"># Calculate the number of data segments to generated for this</span>
+            <span class="c1"># piece of missing data</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">int_e</span><span class="o">-</span><span class="n">int_s</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_size</span><span class="p">)</span>
+
+            <span class="c1"># Create the data segments</span>
+            <span class="n">new_segs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+                <span class="n">seg_ini</span> <span class="o">=</span> <span class="n">int_s</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_size</span>
+                <span class="n">new_segs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LtpDataSegment</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">seg_ini</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_size</span><span class="p">,</span>
+                                               <span class="n">report</span><span class="o">=</span><span class="n">report</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+            <span class="c1"># Save these segments</span>
+            <span class="n">to_tx</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_segs</span><span class="p">)</span>
+
+        <span class="c1"># Mark the last one as a checkpoint</span>
+        <span class="n">to_tx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_checkpoint_id</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+
+        <span class="c1"># Return segments and checkpoint</span>
+        <span class="k">return</span> <span class="n">to_tx</span><span class="p">,</span> <span class="n">to_tx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">new_checkpoint_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">):</span>
+        <span class="c1"># Update the checkpoint counter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_counter</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_counter</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">start_checkpoint_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">old_checkpoint</span><span class="p">):</span>
+        <span class="c1"># Wait until timer expires</span>
+        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkpoint_timer</span><span class="p">)</span>
+
+        <span class="c1"># If this session id is no longer present, then this LTP session has</span>
+        <span class="c1"># already ended. Just return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_session</span><span class="p">(</span><span class="n">session_id</span><span class="p">):</span> <span class="k">return</span>
+
+        <span class="c1"># Get the current checkpoint being processed</span>
+        <span class="n">cur_checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span>
+
+        <span class="c1"># If the checkpoint that triggered the timer is not the current</span>
+        <span class="c1"># checkpoint, then this timer is not needed</span>
+        <span class="k">if</span> <span class="n">cur_checkpoint</span><span class="o">.</span><span class="n">checkpoint</span> <span class="o">!=</span> <span class="n">old_checkpoint</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">:</span> <span class="k">return</span>
+
+        <span class="c1"># Reset the ``has_errors`` flag</span>
+        <span class="n">old_checkpoint</span><span class="o">.</span><span class="n">has_errors</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># If the checkpoint that triggered the timer is still the current</span>
+        <span class="c1"># checkpoint, then re-transmit the checkpoint segment (i.e. the last one)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_through_all</span><span class="p">(</span><span class="n">old_checkpoint</span><span class="p">)</span>
+
+        <span class="c1"># Start the timer for the checkpoint report receive</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_checkpoint_timer</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">old_checkpoint</span><span class="p">))</span>
+
+<div class="viewcode-block" id="DtnOutductMBLTP.do_ack"><a class="viewcode-back" href="../../../../API.html#simulator.ducts.outducts.DtnOutductMBLTP.DtnOutductMBLTP.do_ack">[docs]</a>    <span class="k">def</span> <span class="nf">do_ack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segment</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Re-implement to enable reception of Report Segments &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disp</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> delivered to </span><span class="si">{}</span><span class="s1"> through ACK&#39;</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="c1"># Get session id</span>
+        <span class="n">sid</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">session_id</span>
+
+        <span class="c1"># If there is no ltp_queue for this message&#39;s session, then the outduct</span>
+        <span class="c1"># thinks that this transmission was already successful. Therefore, just</span>
+        <span class="c1"># send a report acknowledgement automatically.</span>
+        <span class="c1"># This can happen if the RA for the last RS is lost, and the LTP induct</span>
+        <span class="c1"># re-sends the last RS after a long enough timeout.</span>
+        <span class="k">if</span> <span class="n">sid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">acknowledge_report</span><span class="p">(</span><span class="n">sid</span><span class="p">,</span> <span class="n">segment</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Process the message normally by adding to the LTP queue of acknowledgements</span>
+        <span class="c1"># Since this is a normal report segment, use priority 1.</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">ltp_queues</span><span class="p">[</span><span class="n">segment</span><span class="o">.</span><span class="n">session_id</span><span class="p">]</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DtnOutductMBLTP.send_through_all"><a class="viewcode-back" href="../../../../API.html#simulator.ducts.outducts.DtnOutductMBLTP.DtnOutductMBLTP.send_through_all">[docs]</a>    <span class="k">def</span> <span class="nf">send_through_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segment</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Send a copy of this segment through all the frequency bands available</span>
+
+<span class="sd">            .. Warning:: A new deep copy of the segment is created for each frequency</span>
+<span class="sd">                         band.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bands</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">segment</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">peer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">transmit_mode</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;MBLtpOutduct </span><span class="si">{}</span><span class="s2">-</span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbor</span><span class="p">)</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

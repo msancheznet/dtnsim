@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>tests.main_tests &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../License.html">3. Copyright and Licensing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for tests.main_tests</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">simulator.utils.DtnIO</span> <span class="k">import</span> <span class="n">load_traffic_file</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="c1"># Get to the right directory</span>
+<span class="n">base_dir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> <span class="k">if</span> <span class="s1">&#39;tests&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;./tests/&#39;</span>
+
+<span class="k">def</span> <span class="nf">_run_test</span><span class="p">(</span><span class="n">test_id</span><span class="p">):</span>
+    <span class="c1"># Load the config file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;test_</span><span class="si">{test_id}</span><span class="s1">.yaml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># Run the simulation (avoid circular import)</span>
+    <span class="kn">from</span> <span class="nn">bin.main</span> <span class="k">import</span> <span class="n">run_simulation</span>
+    <span class="n">run_simulation</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">config</span>
+
+<div class="viewcode-block" id="BasicTests"><a class="viewcode-back" href="../../tests.html#tests.main_tests.BasicTests">[docs]</a><span class="k">class</span> <span class="nc">BasicTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Class that defines all tests &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">test_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_file_and_voice_dv</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_1.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_file_and_voice_dv</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_2.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_file_and_voice_dv</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_3.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_file_dv</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_4.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_5</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_file_dv</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_5.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_6</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_file_and_voice_dv</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_6.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_7</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_file_and_voice_dv</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_7.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_9</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_file_dv_test_9</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_9.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_static_router</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="s1">&#39;static_router&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Compare if data volume matches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">compare_static_routing_dv</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results/test_static_router.h5&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">compare_file_and_voice_dv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="c1"># Compute the data volume from the two generators</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;/arrived&#39;</span><span class="p">)</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># Get the true amount of data that should be sent</span>
+        <span class="n">dv_voice</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;voice_generator&#39;</span><span class="p">][</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;voice_generator&#39;</span><span class="p">][</span><span class="s1">&#39;until&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Do data volume tests. No data should be lost</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">dv</span><span class="o">.</span><span class="n">voice</span><span class="p">,</span> <span class="n">dv_voice</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">compare_file_dv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="c1"># Compute the data volume from the two generators</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;/arrived&#39;</span><span class="p">)</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># Get information about the file generator</span>
+        <span class="n">Lfile</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;file_generator&#39;</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">]</span>
+        <span class="n">Lbnd</span>  <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;file_generator&#39;</span><span class="p">][</span><span class="s1">&#39;bundle_size&#39;</span><span class="p">]</span>
+        <span class="n">Lblk</span>  <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;multiband_duct&#39;</span><span class="p">][</span><span class="s1">&#39;agg_size_limit&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Get number of bundles to transmit file</span>
+        <span class="n">N1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">Lfile</span> <span class="o">/</span> <span class="n">Lbnd</span><span class="p">)</span>
+
+        <span class="c1"># Get number of bundles per block</span>
+        <span class="n">N2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">Lblk</span> <span class="o">/</span> <span class="n">Lbnd</span><span class="p">)</span>
+
+        <span class="c1"># Get number of bundles that will not be sent because</span>
+        <span class="c1"># you cannot form a block</span>
+        <span class="n">dN</span> <span class="o">=</span> <span class="n">N1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">N1</span> <span class="o">/</span> <span class="n">N2</span><span class="p">)</span> <span class="o">*</span> <span class="n">N2</span>
+
+        <span class="c1"># Do data volume tests. No data should be lost.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">dv</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">Lfile</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="p">(</span><span class="n">dN</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="o">*</span> <span class="n">Lbnd</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">compare_file_dv_test_9</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="c1"># Compute the data volume from the two generators</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;/arrived&#39;</span><span class="p">)</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;data_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># Get information about the file generator</span>
+        <span class="n">Lfile</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;file_generator&#39;</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Do data volume tests. No data should be lost.</span>
+        <span class="c1"># Note: Assume that there could be 3 order of magnitude difference</span>
+        <span class="c1"># due to small bundles not being sent at the of simulation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">dv</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">Lfile</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="n">Lfile</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">compare_static_routing_dv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="c1"># Compute the data volume from the two generators</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;/arrived&#39;</span><span class="p">)</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;orig&#39;</span><span class="p">,</span><span class="s1">&#39;dest&#39;</span><span class="p">,</span><span class="s1">&#39;data_type&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># Get the true amount of data that should be sent</span>
+        <span class="n">dv_voice</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;voice_generator1&#39;</span><span class="p">][</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;voice_generator1&#39;</span><span class="p">][</span><span class="s1">&#39;until&#39;</span><span class="p">]</span>
+        <span class="n">dv_file1</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;file_generator1&#39;</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">]</span>
+        <span class="n">dv_file2</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;file_generator4&#39;</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Do data volume tests. No data should be lost</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">dv</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s1">&#39;N1&#39;</span><span class="p">,</span> <span class="s1">&#39;N3&#39;</span><span class="p">,</span> <span class="s1">&#39;voice&#39;</span><span class="p">)],</span> <span class="n">dv_voice</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">dv</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s1">&#39;N1&#39;</span><span class="p">,</span> <span class="s1">&#39;N2&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">)],</span>  <span class="n">dv_file1</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">dv</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="s1">&#39;N4&#39;</span><span class="p">,</span> <span class="s1">&#39;N1&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">)],</span>  <span class="n">dv_file2</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WalkerConsTests"><a class="viewcode-back" href="../../tests.html#tests.main_tests.WalkerConsTests">[docs]</a><span class="k">class</span> <span class="nc">WalkerConsTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the simulation</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="s1">&#39;walker_cons&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get the output and validation files</span>
+        <span class="n">path</span>  <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;outdir&#39;</span><span class="p">])</span>
+        <span class="n">ofile</span> <span class="o">=</span> <span class="n">path</span> <span class="o">/</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;outfile&#39;</span><span class="p">]</span>
+        <span class="n">vfile</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="o">/</span><span class="s1">&#39;validation&#39;</span><span class="o">/</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;globals&#39;</span><span class="p">][</span><span class="s1">&#39;outfile&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Tables to validate</span>
+        <span class="n">tables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sent&#39;</span><span class="p">,</span> <span class="s1">&#39;dropped&#39;</span><span class="p">,</span> <span class="s1">&#39;arrived&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Compare each table</span>
+        <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+            <span class="c1"># Load tables from memory</span>
+            <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">table</span><span class="p">)</span>
+            <span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">vfile</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">table</span><span class="p">)</span>
+
+            <span class="c1"># Perform basic test. Shape of data frames needs</span>
+            <span class="c1"># to be the same</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">df2</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                            <span class="n">msg</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;Check Table &quot;</span><span class="si">{table}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Check that the arrived data volume matches</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                                   <span class="n">df2</span><span class="o">.</span><span class="n">data_vol</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="MobilityTests"><a class="viewcode-back" href="../../tests.html#tests.main_tests.MobilityTests">[docs]</a><span class="k">class</span> <span class="nc">MobilityTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_epidemic_router</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Run the test</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">_run_test</span><span class="p">(</span><span class="s1">&#39;epidemic_routing&#39;</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">get_test_suite</span><span class="p">():</span>
+    <span class="c1"># Create a suite of tests</span>
+    <span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">()</span>
+
+    <span class="c1"># Add tests to the suite</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_1&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_2&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_3&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_4&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_5&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_6&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_7&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_9&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">BasicTests</span><span class="p">(</span><span class="s1">&#39;test_static_router&#39;</span><span class="p">))</span>
+    <span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">WalkerConsTests</span><span class="p">(</span><span class="s1">&#39;test_network&#39;</span><span class="p">))</span>
+    <span class="c1">#suite.addTest(MobilityTests(&#39;test_epidemic_router&#39;))</span>
+
+    <span class="k">return</span> <span class="n">suite</span>
+
+<span class="k">def</span> <span class="nf">run_tests</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="c1"># Disable python warnings</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get the tests suite</span>
+    <span class="n">suite</span> <span class="o">=</span> <span class="n">get_test_suite</span><span class="p">()</span>
+
+    <span class="c1"># Reset the results folder</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s1">&#39;results&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Run all tests</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="n">verbosity</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">run_tests</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

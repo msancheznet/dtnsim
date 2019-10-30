@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>simulator.radios.DtnBasicRadio &#8212; DtnSim R2019b documentation</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          DtnSim</a>
+        <span class="navbar-text navbar-version pull-left"><b>R2019</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API.html">1. Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-bin.main">1.1. Simulation Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.core.DtnCore">1.2. Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.nodes.DtnNode">1.3. DTN Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.connections.DtnAbstractConnection">1.4. DTN Connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.ducts.DtnAbstractDuct">1.5. DTN Convergence Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.radios.DtnAbstractRadio">1.6. DTN Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.routers.DtnAbstractRouter">1.7. DTN Routers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.generators.DtnAbstractGenerator">1.8. DTN Bundle Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.selectors.DtnAbstractDuctSelector">1.9. DTN Duct Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.reports.DtnAbstractReport">1.10. DTN Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../API.html#module-simulator.utils.DtnArgumentParser">1.11. DTN Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">2. Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../License.html">3. Copyright and Licensing</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for simulator.radios.DtnBasicRadio</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">simulator.core.DtnQueue</span> <span class="k">import</span> <span class="n">DtnQueue</span>
+<span class="kn">from</span> <span class="nn">simulator.radios.DtnAbstractRadio</span> <span class="k">import</span> <span class="n">DtnAbstractRadio</span>
+
+<div class="viewcode-block" id="DtnBasicRadio"><a class="viewcode-back" href="../../../API.html#simulator.radios.DtnBasicRadio.DtnBasicRadio">[docs]</a><span class="k">class</span> <span class="nc">DtnBasicRadio</span><span class="p">(</span><span class="n">DtnAbstractRadio</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">shared</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># Call parent constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnBasicRadio</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">shared</span><span class="p">)</span>
+
+        <span class="c1"># Create input queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_queue</span> <span class="o">=</span> <span class="n">DtnQueue</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stored</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_queue</span><span class="o">.</span><span class="n">stored</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;where&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;radio&#39;</span>
+        <span class="k">return</span> <span class="n">df</span>
+
+<div class="viewcode-block" id="DtnBasicRadio.initialize"><a class="viewcode-back" href="../../../API.html#simulator.radios.DtnBasicRadio.DtnBasicRadio.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">BER</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">J_bit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Store configuration parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datarate</span>  <span class="o">=</span> <span class="n">rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">BER</span>       <span class="o">=</span> <span class="n">BER</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">J_bit</span>     <span class="o">=</span> <span class="n">J_bit</span>
+
+        <span class="c1"># Call parent initializer</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DtnBasicRadio</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">do_put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+        <span class="c1"># Create item to send</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="p">(</span><span class="n">neighbor</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+
+        <span class="c1"># Add it to the queue</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+            <span class="c1"># Get the next segment to transmit</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="c1"># Depack item</span>
+            <span class="n">neighbor</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">direction</span> <span class="o">=</span> <span class="n">item</span>
+
+            <span class="c1"># Get the connection to send this message through</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outcons</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span>
+
+            <span class="c1"># Compute total transmission time</span>
+            <span class="n">Ttx</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">num_bits</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">datarate</span>
+
+            <span class="c1"># Apply delay for radio to transmit entire segment</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">timeout</span><span class="p">(</span><span class="n">Ttx</span><span class="p">)</span>
+
+            <span class="c1"># Count the energy consumed</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">+=</span> <span class="n">message</span><span class="o">.</span><span class="n">num_bits</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">J_bit</span>
+
+            <span class="c1"># Transmit the message through the connection.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_through_connection</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DtnBasicRadio.send_through_connection"><a class="viewcode-back" href="../../../API.html#simulator.radios.DtnBasicRadio.DtnBasicRadio.send_through_connection">[docs]</a>    <span class="k">def</span> <span class="nf">send_through_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Send a message through a connection</span>
+
+<span class="sd">            :param Message message: The message to send</span>
+<span class="sd">            :param conn: The connection to send the message through</span>
+<span class="sd">            :param peer: The peer duct that will receive the message</span>
+<span class="sd">            :param str direction: &#39;fwd&#39; vs. &#39;ack&#39;. By default &#39;fwd&#39;, use &#39;ack&#39;</span>
+<span class="sd">                                  for the acknowledgement messages of protocols</span>
+<span class="sd">                                  like LTP (from dest to origin).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This is a non-blocking call since the bundle is out in transit</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">transmit</span><span class="p">(</span><span class="n">peer</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">BER</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">)</span></div></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Marc Sanchez Net.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

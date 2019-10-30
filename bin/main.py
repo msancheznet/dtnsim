@@ -100,7 +100,7 @@ def _run_simulation(config, profile, return_env):
 #========================================================================
 
 def _run_simulations(configs, ncpu=1):
-    """ Run all simulations
+    """ Run all simulations. Do not call directly.
 
         :param configs: List/tuple of dictionaries
     """

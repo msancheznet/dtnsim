@@ -153,48 +153,6 @@ class BasicTests(unittest.TestCase):
         self.assertAlmostEqual(dv.loc[('N1', 'N2', 'file')],  dv_file1, places=0)
         self.assertAlmostEqual(dv.loc[('N4', 'N1', 'file')],  dv_file2, places=0)
 
-class PhobosTests(unittest.TestCase):
-    def _run_test(self, test_id):
-        # Load the config file
-        with open(base_dir + f'test_{test_id}.yaml') as f:
-            config = yaml.load(f)
-
-        # Run the simulation (avoid circular import)
-        from bin.main import run_simulation
-        ok = run_simulation(config=config)
-
-        return config, ok
-
-    def test_network(self):
-        # Run test
-        try:
-            config, ok = self._run_test(8)
-        except:
-            self.fail(traceback.format_exc())
-
-        # Get data volume of bundles arrived
-        df  = pd.read_hdf(base_dir + 'results/test_8.h5', '/arrived')
-        dv1 = df.groupby('data_type').data_vol.sum()
-
-        # Get the expected data volume of flows
-        path = str(Path(config['globals']['indir'])/config['markov_generator']['file'])
-        tf   = load_traffic_file(path, as_dict=False)
-        tf['dv'] = tf.DataRate*tf.DutyCycle*((tf.EndTime-tf.StartTime).dt.total_seconds())
-        dv2  = tf.groupby('DataType').dv.sum()
-
-        # Decide which data is critical
-        critical = dv1 > dv2
-
-        # For critical data, the maximum overhead should be x5
-        check1 = np.allclose(dv1[critical], dv2[critical], rtol=5, atol=0)
-
-        # For non-critical data, you might have received a little less
-        check2 = np.allclose(dv1[~critical], dv2[~critical], rtol=1, atol=0)
-
-        # Complete test
-        self.assertTrue(check1)
-        self.assertTrue(check2)
-
 class WalkerConsTests(unittest.TestCase):
     def test_network(self):
         # Run the simulation
@@ -242,7 +200,6 @@ def get_test_suite():
     suite.addTest(BasicTests('test_7'))
     suite.addTest(BasicTests('test_9'))
     suite.addTest(BasicTests('test_static_router'))
-    suite.addTest(PhobosTests('test_network'))
     suite.addTest(WalkerConsTests('test_network'))
     #suite.addTest(MobilityTests('test_epidemic_router'))
 
