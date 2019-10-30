@@ -1,0 +1,167 @@
+# =============================================================================
+# === test_7.yaml
+# =============================================================================
+#
+# Author: Marc Sanchez Net
+# Date: 05/11/2018
+# 
+# This test demonstrates the following functionality/blocks:
+#
+#   1) Based on ``test_2.yaml``
+#   2) Use ``DtnEnergyReport`` to export energy consumed by the radios
+#
+# =============================================================================
+# === GLOBAL CONFIGURATION PARAMETERS
+# =============================================================================
+
+# Global settings file for LTP testing
+globals:
+  indir:    "./tests/inputs/"
+  outdir:   "./tests/results/"
+  outfile:  "test_7.h5"
+  logfile:  "Test Log.log"
+  log:      False
+  track:    True
+  monitor:  True
+
+# =============================================================================
+# === SCENARIO AND NETWORK
+# =============================================================================
+
+# Scenario definition
+scenario:
+  epoch: 01-JAN-2018 00:00:00 UTC
+  seed: 0
+
+# Mobility model
+static_model:
+  class: DtnStaticMobilityModel
+
+# Network definition 
+network:
+  nodes:
+    N1: {type: "node1", alias: "Node 1"}
+    N2: {type: "node2", alias: "Node 2"}
+  connections:
+    C1: {origin: "N1", destination: "N2", type: "connection"}
+
+# =============================================================================
+# === NODES
+# =============================================================================
+
+# Node type definitions
+node1: 
+  class:      DtnNode
+  router:     static_router
+  generators: [file_generator, voice_generator]
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+node2:
+  class:      DtnNode
+  router:     static_router
+  generators: []
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+# Static router definition
+static_router:
+  class:  DtnStaticRouter
+  routes:
+    N1: {N2: N2}
+    N2: {N1: N1}
+
+
+# Outduct selector
+band_selector:
+  class: "DtnBundleCriticalitySelector"
+
+# =============================================================================
+# === CONNECTIONS, DUCTS AND RADIOS
+# =============================================================================
+
+# Connection with 2 bands and LTP
+connection:
+  class:    DtnStaticConnection
+  ducts:    {X: 'x_duct_ltp', Ka: 'ka_duct_basic'}
+  mobility_model: static_model
+
+# X-band duct
+x_duct_ltp:
+  class: ["DtnInductLTP", "DtnOutductLTP"]
+  parser: DtnLTPDuctParser
+  radio: 'x_radio'
+  agg_size_limit: !!float 50e3      # 1 block   = 5 bundles
+  segment_size: !!float 5e3         # 1 segment = 1/2 bundle
+  report_timer: 1201
+  checkpoint_timer: 1201
+
+# Ka-band duct
+ka_duct_basic:
+  class: ["DtnInductBasic", "DtnOutductBasic"]
+  radio: 'ka_radio'
+
+# X-band radio
+x_radio:
+  class: "DtnCodedRadio"
+  rate: !!float 256e3
+  FER: !!float 1e-4
+  frame_size: !!float 1e3
+  code_rate: 0.5
+  J_bit: !!float 4e-5             # See Kepler data
+
+# Ka-band radio
+ka_radio:
+  class: "DtnCodedRadio"
+  rate: !!float 1e6
+  FER: !!float 1e-3
+  frame_size: !!float 10e3
+  code_rate: 0.5
+  J_bit: !!float 1.5e-5           # See Kepler data
+
+# =============================================================================
+# === TRAFFIC GENERATORS
+# =============================================================================
+
+# File generator
+file_generator:
+  class: "DtnFileGenerator"
+  origin: 'N1'
+  destination: 'N2'
+  size: !!float 100e6
+  data_type: 'file'
+  bundle_size: !!float 50e3
+  bundle_TTL: 3600
+  critical: False              # Force through Ka-band
+
+# Constant bit rate generator for voice
+voice_generator:
+  class: "DtnConstantBitRateGenerator"
+  origin: 'N1'
+  destination: 'N2'
+  data_type: 'voice'
+  bundle_size: !!float 10e3
+  bundle_TTL: 3600
+  critical: True              # Force through X-band
+  rate: !!float 128e3
+  until: 100
+
+# =============================================================================
+# === REPORTS
+# =============================================================================
+
+reports:
+  - DtnArrivedBundlesReport
+  - DtnConnLostBundlesReport
+  - DtnConnSentBundlesReport
+  - DtnDroppedBundlesReport
+  - DtnEnergyReport
+  - DtnInOutductBundlesReport
+  - DtnSentBundlesReport
+  - DtnStoredBundlesReport
+
+# =============================================================================
+# === EOF
+# =============================================================================

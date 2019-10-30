@@ -1,0 +1,135 @@
+# =============================================================================
+# === test_epidemic_router.yaml
+# =============================================================================
+#
+# Author: Marc Sanchez Net
+# Date: 09/06/2018
+#
+# This test is based on ``test_9.yaml``. It demonstrates the following
+# functionality/blocks:
+#
+#   1) Define a scenario with mobile users
+#   2) Define a network with node multiplicity and all-to-all connections
+#   3) Node locations are predicted using a ``DtnRandomWaypointModel``
+#   4) Connections are turned on/off based on distance between nodes
+#   5) All nodes use a ``DtnEpidemicRouter`` to move data around
+#
+# =============================================================================
+# === GLOBAL CONFIGURATION PARAMETERS
+# =============================================================================
+
+# Global settings file
+globals:
+  indir:    ./tests/inputs/
+  outdir:   ./tests/results/
+  outfile:  test_epidemic_router.h5
+  logfile:  Test Log.log
+  log:      False
+  track:    False
+
+# =============================================================================
+# === SCENARIO, MOBILITY MODELS AND NETWORK
+# =============================================================================
+
+# Scenario definition
+scenario:
+  epoch: 01-JAN-2018 00:00:00 UTC
+  until: 3600
+
+# Mobility model definition
+waypoint_model:
+  class:     DtnRandomWaypointMobilityModel
+  x_max:     2000
+  y_max:     2000
+  v_max:     15
+  v_min:     5
+  wait_min:  300
+  wait_max:  600
+  time_step: 1
+  until:     3600
+
+# Network definition
+network:
+  nodes:
+    N: {type: node, alias: Node, repeat: 2}
+  connections:
+    C: {type: connection}
+
+# =============================================================================
+# === NODES
+# =============================================================================
+
+# Node type definition
+node:
+  class:      DtnNode
+  router:     epidemic_router
+  generators: [cbr_generator]
+  selector:   band_selector
+  radios:     [basic_radio]
+  endpoints:  {1: DtnQueueEndpoint}
+
+# Router definition
+epidemic_router:
+  class:   DtnOpportunisticRouter
+  parser:  DtnEpidemicRouterParser
+  manager: DtnEpidemicManager
+
+# Outduct selector
+band_selector:
+  class:     DtnDefaultSelector
+
+# =============================================================================
+# === CONNECTIONS
+# =============================================================================
+
+# All connections are of this type
+connection:
+  class:          DtnDistanceConnection
+  ducts:          {basic: basic_duct}
+  mobility_model: waypoint_model
+  max_distance:   500
+
+# =============================================================================
+# === DUCTS
+# =============================================================================
+
+# All connections have this type of duct
+basic_duct:
+  class:     [DtnInductBasic, DtnOutductBasic]
+  radio:     basic_radio
+
+# =============================================================================
+# === RADIOS
+# =============================================================================
+
+# All nodes use this radio
+basic_radio:
+  class:     DtnBasicRadio
+  rate:      !!float 1e6
+  BER:       !!float 0.0
+
+# =============================================================================
+# === TRAFFIC GENERATORS
+# =============================================================================
+
+# All nodes have this generator
+cbr_generator:
+  class:       DtnConstantBitRateGenerator
+  rate:        !!float 1e3
+  tstart:      0
+  duration:    3600
+  data_type:   file
+  bundle_size: !!float 20e3
+  bundle_TTL:  3600
+  critical:    False
+
+# =============================================================================
+# === REPORTS
+# =============================================================================
+
+reports:
+  - DtnArrivedBundlesReport
+
+# =============================================================================
+# === EOF
+# =============================================================================

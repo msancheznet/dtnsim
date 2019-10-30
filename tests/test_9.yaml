@@ -1,0 +1,156 @@
+# =============================================================================
+# === test_9.yaml
+# =============================================================================
+#
+# Author: Marc Sanchez Net
+# Date: 07/10/2018
+# 
+# This test demonstrates the following functionality/blocks:
+#
+#   1) Based on ``test_6.yaml``
+#   2) Use ``DtnInductParallelLTP`` and ``DtnOutductParallelLTP`` to manage.
+#      simultaneous parallel LTP engines in the X and Ka-band links.
+#   3) The Ka-band radio has Rb > X-band Rb.
+#   4) The Ka-band radio uses larger LTP blocks/segments.
+#   5) The Ka-band channel has BER > X-band BER.
+#   6) The LTP timers are specified at their optimal values.
+#
+# =============================================================================
+# === GLOBAL CONFIGURATION PARAMETERS
+# =============================================================================
+
+# Global settings file for LTP testing
+globals:
+  indir:    "./tests/inputs/"
+  outdir:   "./tests/results/"
+  outfile:  "test_9.h5"
+  logfile:  "Test Log.log"
+  log:      False
+  track:    True
+
+# =============================================================================
+# === SCENARIO AND NETWORK
+# =============================================================================
+
+# Scenario definition
+scenario:
+  epoch: "01-JAN-2018 00:00:00 UTC"
+  seed: 0
+
+# Mobility model
+static_model:
+  class: DtnStaticMobilityModel
+
+# Network definition 
+network:
+  nodes:
+    N1: {type: "node1", alias: "Node 1"}
+    N2: {type: "node2", alias: "Node 2"}
+  connections:
+    C1: {origin: "N1", destination: "N2", type: "connection"}
+
+# =============================================================================
+# === NODES
+# =============================================================================
+
+# Node type definitions
+node1: 
+  class:      DtnNode
+  router:     static_router
+  generators: [file_generator]
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+node2: 
+  class:      DtnNode
+  router:     static_router
+  generators: []
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+# Static router definition
+static_router:
+  class:  DtnStaticRouter
+  routes:
+    N1: {N2: N2}
+    N2: {N1: N1}
+
+# Outduct selector
+band_selector:
+  class: "DtnDefaultSelector"
+
+# =============================================================================
+# === CONNECTIONS, DUCTS AND RADIOS
+# =============================================================================
+
+# Connection with 2 bands and LTP
+connection:
+  class:    DtnStaticConnection
+  ducts:    {PLTP: parallel_duct_ltp}
+  mobility_model: static_model
+
+# Duct to manage multiple parallel LTP sessions at once
+parallel_duct_ltp:
+  class:    ["DtnInductParallelLTP", "DtnOutductParallelLTP"]
+  parser:   DtnParallelLTPDuctParser
+  engines:  {X: 'x_duct_ltp', Ka: 'ka_duct_ltp'}
+
+# X-band duct
+x_duct_ltp:
+  class:            ["DtnInductLTP", "DtnOutductLTP"]
+  parser:           DtnLTPDuctParser
+  radio:            'x_radio'
+  agg_size_limit:   !!float 250e3       # 1 block   = 5 bundles
+  segment_size:     !!float 10e3        # 1 segment = 1/5 bundle
+  report_timer:     1201
+  checkpoint_timer: 1201
+
+# Ka-band duct
+ka_duct_ltp:
+  class:            ["DtnInductLTP", "DtnOutductLTP"]
+  parser:           DtnLTPDuctParser
+  radio:            'ka_radio'
+  agg_size_limit:   !!float 2e6       # 1 block   = 5 bundles
+  segment_size:     !!float 50e3        # 1 segment = 1/5 bundle
+  report_timer:     1201
+  checkpoint_timer: 1201
+
+# X-band radio
+x_radio:
+  class:      "DtnBasicRadio"
+  rate:       !!float 1e6
+  BER:        !!float 1e-6
+
+# Ka-band radio
+ka_radio:
+  class:      "DtnBasicRadio"
+  rate:       !!float 10e6
+  BER:        !!float 1e-5
+
+# =============================================================================
+# === TRAFFIC GENERATORS
+# =============================================================================
+
+# File generator
+file_generator:
+  class:        "DtnFileGenerator"
+  origin:       'N1'
+  destination:  'N2'
+  size:         !!float 100e6
+  data_type:    'file'
+  bundle_size:  !!float 50e3
+  bundle_TTL:   3600
+  critical:     False              # Force through Ka-band
+
+# =============================================================================
+# === REPORTS
+# =============================================================================
+
+reports:
+  - DtnArrivedBundlesReport
+
+# =============================================================================
+# === EOF
+# =============================================================================

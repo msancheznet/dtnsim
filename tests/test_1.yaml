@@ -1,0 +1,149 @@
+# =============================================================================
+# === test_1.yaml
+# =============================================================================
+# 
+# Author: Marc Sanchez Net
+# Date: 05/11/2018
+# 
+# This test demonstrates the following functionality/blocks:
+#
+#   1) Create a simulation environment
+#   2) Create a network of nodes and connections
+#   4) Define a connection with multiple outducts/inducts
+#   3) Use a ``DtnFileGenerator`` and ``DtnConstantBitRateGenerator``
+#   4) Use a ``DtnBundleCriticalitySelector``
+#   5) Use a ``DtnInductBasic``, ``DtnOutductBasic``
+#   6) Use a ``DtnSimpleRadio``
+#
+# Note: For the test to work, the file and block size must be a multiple of the
+#       bundle size
+#
+# =============================================================================
+# === GLOBAL CONFIGURATION PARAMETERS
+# =============================================================================
+
+# Global settings file for LTP testing
+globals:
+  indir:    ./tests/inputs/
+  outdir:   ./tests/results/
+  outfile:  test_1.h5
+  logfile:  Test Log.log
+  log:      False
+  track:    True
+
+# =============================================================================
+# === SCENARIO AND NETWORK
+# =============================================================================
+
+# Scenario definition
+scenario:
+  epoch: 01-JAN-2018 00:00:00
+  seed:  0
+
+# Mobility model
+static_model:
+  class: DtnStaticMobilityModel
+
+# Network definition 
+network:
+  nodes:
+    N1: {type: node1, alias: Node 1}
+    N2: {type: node2, alias: Node 2}
+  connections:
+    C1: {origin: N1, destination: N2, type: connection}
+
+# =============================================================================
+# === NODES
+# =============================================================================
+
+# Node type definitions
+node1: 
+  class:      DtnNode
+  router:     static_router
+  generators: [file_generator, voice_generator]
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+node2: 
+  class:      DtnNode
+  router:     static_router
+  generators: []
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+# Static router definition
+static_router:
+  class:  DtnStaticRouter
+  routes:
+    N1: {N2: N2}
+    N2: {N1: N1}
+
+# Outduct selector
+band_selector:
+  class: DtnBundleCriticalitySelector
+
+# =============================================================================
+# === CONNECTIONS, DUCTS AND RADIOS
+# =============================================================================
+
+# Connection with 2 bands and LTP
+connection:
+  class:    DtnStaticConnection
+  ducts:    {X: 'x_duct_basic', Ka: 'ka_duct_basic'}
+  mobility_model: static_model
+
+# X-band duct
+x_duct_basic:
+  class: ["DtnInductBasic", "DtnOutductBasic"]
+  radio: 'x_radio'
+
+# Ka-band duct
+ka_duct_basic:
+  class: ["DtnInductBasic", "DtnOutductBasic"]
+  radio: 'ka_radio'
+
+x_radio:
+  class: "DtnBasicRadio"
+  definition: 'radio'
+  rate: !!float 256e3
+
+ka_radio:
+  class: "DtnBasicRadio"
+  definition: 'radio'
+  rate: !!float 1e6
+
+# =============================================================================
+# === TRAFFIC GENERATORS
+# =============================================================================
+
+# File generator
+file_generator:
+  class:       DtnFileGenerator
+  size:        !!float 250e6
+  data_type:   file
+  bundle_size: !!float 50e3
+  bundle_TTL:  3600
+  critical:    False              # Force through Ka-band
+
+# Constant bit rate generator for voice
+voice_generator:
+  class:       DtnConstantBitRateGenerator
+  data_type:   voice
+  bundle_size: !!float 10e3
+  bundle_TTL:  3600
+  critical:    True              # Force through X-band
+  rate:        !!float 128e3
+  until:       600
+
+# =============================================================================
+# === REPORTS
+# =============================================================================
+
+reports:
+  - DtnArrivedBundlesReport
+
+# =============================================================================
+# === EOF
+# =============================================================================

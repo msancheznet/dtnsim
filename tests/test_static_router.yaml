@@ -1,0 +1,172 @@
+# =============================================================================
+# === test_static_router.yaml
+# =============================================================================
+#
+# Author: Marc Sanchez Net
+# Date: 07/17/2018
+#
+# This test demonstrates the following functionality/blocks:
+#
+#   1) DtnStaticRouter
+#
+# All ducts are assumed to be simple
+#
+# =============================================================================
+# === GLOBAL CONFIGURATION PARAMETERS
+# =============================================================================
+
+# Global settings file for LTP testing
+globals:
+  indir:    ./tests/inputs/
+  outdir:   ./tests/results/
+  outfile:  test_static_router.h5
+  logfile:  'Test Log.log'
+  log:      False
+  track:    True
+
+# =============================================================================
+# === SCENARIO AND NETWORK
+# =============================================================================
+
+# Scenario definition
+scenario:
+  epoch: '01-JAN-2018 00:00:00 UTC'
+  seed: 0
+
+# Mobility model
+static_model:
+  class: DtnStaticMobilityModel
+
+# Network definition
+network:
+  nodes:
+    N1: {type: node1, alias: Node 1}
+    N2: {type: relay, alias: Node 2}
+    N3: {type: relay, alias: Node 3}
+    N4: {type: node4, alias: Node 4}
+  connections:
+    C1: {origin: N1, destination: N2, type: connection}
+    C2: {origin: N2, destination: N3, type: connection}
+    C3: {origin: N2, destination: N4, type: connection}
+    C4: {origin: N3, destination: N4, type: connection}
+
+# =============================================================================
+# === NODES
+# =============================================================================
+
+# Node type definitions
+node1:
+  class:      DtnNode
+  router:     static_router
+  generators: [file_generator1, voice_generator1]
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+relay:
+  class:      DtnNode
+  router:     static_router
+  generators: []
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+node4:
+  class:      DtnNode
+  router:     static_router
+  generators: [file_generator4]
+  selector:   band_selector
+  radios:     [x_radio, ka_radio]
+  mobility_model: static_model
+
+# Static router definition
+static_router:
+  class:  DtnStaticRouter
+  routes:
+    N1: {default: N2}
+    N2: {N1: N1, N3: N3, N4: N4}
+    N3: {default: N2, N4: N4}
+    N4: {default: N2, N3: N3}
+
+# Outduct selector
+band_selector:
+  class: DtnBundleCriticalitySelector
+
+# =============================================================================
+# === CONNECTIONS, DUCTS AND RADIOS
+# =============================================================================
+
+# Connection with 2 bands and LTP
+connection:
+  class:      DtnStaticConnection
+  ducts:      {X: x_duct_basic, Ka: ka_duct_basic}
+  mobility_model: static_model
+
+# X-band duct
+x_duct_basic:
+  class:  [DtnInductBasic, DtnOutductBasic]
+  parser: DtnBasicDuctParser
+  radio:  x_radio
+
+# Ka-band duct
+ka_duct_basic:
+  class:  [DtnInductBasic, DtnOutductBasic]
+  parser: DtnBasicDuctParser
+  radio:  ka_radio
+
+x_radio:
+  class:      DtnBasicRadio
+  rate:       !!float 256e3
+
+ka_radio:
+  class:      DtnBasicRadio
+  rate:       !!float 1e6
+
+# =============================================================================
+# === TRAFFIC GENERATORS
+# =============================================================================
+
+# File generator from N1 to N3
+file_generator1:
+  class:        DtnFileGenerator
+  origin:       N1
+  destination:  N2
+  size:         !!float 250e6
+  data_type:    file
+  bundle_size:  !!float 500e3
+  bundle_TTL:   3600
+  critical:     False              # Force through Ka-band
+
+# File generator from N3 to N1
+file_generator4:
+  class:        DtnFileGenerator
+  origin:       N4
+  destination:  N1
+  size:         !!float 350e6
+  data_type:    file
+  bundle_size:  !!float 500e3
+  bundle_TTL:   3600
+  critical:     False              # Force through Ka-band
+
+# Constant bit rate generator for voice from N1 to N2
+voice_generator1:
+  class:        DtnConstantBitRateGenerator
+  origin:       N1
+  destination:  N3
+  data_type:    voice
+  bundle_size:  !!float 10e3
+  bundle_TTL:   3600
+  critical:     True              # Force through X-band
+  rate:         !!float 128e3
+  until:     600
+
+# =============================================================================
+# === REPORTS
+# =============================================================================
+
+reports:
+  - DtnArrivedBundlesReport
+
+# =============================================================================
+# === EOF
+# =============================================================================

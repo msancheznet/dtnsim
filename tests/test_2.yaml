@@ -1,0 +1,135 @@
+# =============================================================================
+# === test_2.yaml
+# =============================================================================
+#
+# Author: Marc Sanchez Net
+# Date: 05/11/2018
+# 
+# This test demonstrates the following functionality/blocks:
+#
+#   1) Same as ``test_1.yaml``
+#   2) Use ``DtnInductLTP`` and ``DtnOutductLTP`` in the X-band duct
+#   3) Define a ``DtnSimpleRadio`` with a given BER.
+#
+# Note: For the test to work, the file and block size must be a multiple of the
+#       bundle size
+#
+# =============================================================================
+# === GLOBAL CONFIGURATION PARAMETERS
+# =============================================================================
+
+# Global settings file for LTP testing
+globals:
+  indir:    "./tests/inputs/"
+  outdir:   "./tests/results/"
+  outfile:  "test_2.h5"
+  logfile:  "Test Log.log"
+  log:      False
+  track:    True
+
+# =============================================================================
+# === SCENARIO AND NETWORK
+# =============================================================================
+
+# Scenario definition
+scenario:
+  epoch: 01-JAN-2018 00:00:00 UTC
+  seed: 0
+
+# Mobility model
+static_model:
+  class: DtnStaticMobilityModel
+
+# Network definition
+network:
+  nodes:
+    N1: {type: node1, alias: Node 1}
+    N2: {type: node2, alias: Node 2}
+  connections:
+    C1: {origin: N1, destination: N2, type: connection}
+
+# =============================================================================
+# === NODES
+# =============================================================================
+
+# Node type definitions
+node1: 
+  class:      DtnNode
+  router:     static_router
+  generators: [voice_generator]
+  selector:   selector
+  radios:     [x_radio]
+  mobility_model: static_model
+
+node2: 
+  class:      DtnNode
+  router:     static_router
+  generators: []
+  selector:   selector
+  radios:     [x_radio]
+  mobility_model: static_model
+
+# Static router definition
+static_router:
+  class:  DtnStaticRouter
+  routes:
+    N1: {N2: N2}
+    N2: {N1: N1}
+
+# Outduct selector
+selector:
+  class: DtnDefaultSelector
+
+# =============================================================================
+# === CONNECTIONS, DUCTS AND RADIOS
+# =============================================================================
+
+# Connection with 2 bands and LTP
+connection:
+  class: DtnStaticConnection
+  ducts: {X: 'x_duct_ltp'}
+  mobility_model: static_model
+
+# X-band duct
+x_duct_ltp:
+  class: ["DtnInductLTP", "DtnOutductLTP"]
+  parser: DtnLTPDuctParser
+  radio: 'x_radio'
+  agg_size_limit: !!float 50e3      # 1 block   = 5 bundles
+  segment_size: !!float 5e3         # 1 segment = 1/2 bundle
+  report_timer: 1201
+  checkpoint_timer: 1201
+
+# X-band radio
+x_radio:
+  class: "DtnBasicRadio"
+  definition: 'radio'
+  rate: !!float 256e3
+  BER: !!float 1e-4
+
+# =============================================================================
+# === TRAFFIC GENERATORS
+# =============================================================================
+
+# Constant bit rate generator for voice
+voice_generator:
+  class: "DtnConstantBitRateGenerator"
+  definition: 'cbr_generator'
+  origin: 'N1'
+  destination: 'N2'
+  data_type: 'voice'
+  bundle_size: !!float 10e3
+  critical: True              # Force through X-band
+  rate: !!float 128e3
+  until: 600
+
+# =============================================================================
+# === REPORTS
+# =============================================================================
+
+reports:
+  - DtnArrivedBundlesReport
+
+# =============================================================================
+# === EOF
+# =============================================================================

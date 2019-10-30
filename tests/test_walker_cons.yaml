@@ -1,0 +1,138 @@
+# =============================================================================
+# === test_walker_cons.yaml
+# =============================================================================
+#
+# Author: Marc Sanchez Net
+# Date:   03/31/2019
+#
+# Configuration file for a Walker constellation with 24 satellites (3 planes, 
+# 8 satellites per plane) and max phasing between satellites (i.e. the system
+# is optimized for coverage, not comms.)
+#
+# Features demonstrated in this test include:
+# - Define a type of connection for all (o,d) pairs implicitely (see network
+#   definition).
+# - Define the constellation nodes using a constellation tag instead of a list
+#   of nodes.
+# - Use the ``AgrCgrRouter`` that uses an extension block
+# - Use the ``DtnScheduledBroadcastConnection`` object that forwards a message
+#   to more than one destination if it deems that they will be in view at the
+#   same time.
+# - Use the ``AgcPacketGenerator`` to create packets with priority.
+#
+# =============================================================================
+# === GLOBAL CONFIGURATION PARAMETERS
+# =============================================================================
+
+# Global settings file for LTP testing
+globals:
+  indir:   ./tests/inputs/test_walker_cons
+  outdir:  ./tests/results/
+  outfile: test_walker_cons.h5
+  logfile: Test Log.log
+  log:     False
+  track:   True
+
+# =============================================================================
+# === SCENARIO AND NETWORK
+# =============================================================================
+
+# Scenario definition
+scenario:
+  epoch:  01-JAN-2000 11:59:28 UTC
+  seed:   0
+  until:  4500
+
+# Define mobility model
+scheduled_mobility:
+  class:    DtnScheduledMobilityModel
+  contacts: 3p_8s_contact_plan.xlsx
+  ranges:   3p_8s_range_intervals.xlsx
+
+# Network definition
+network:
+  constellation:
+    {node: {type: satellite, alias: s}, num_sat: 8, num_planes: 3}
+  connections:
+    Con: {origin:, destination:, type: connection}
+
+# =============================================================================
+# === NODES
+# =============================================================================
+
+# Satellite definition
+satellite:
+  class:          DtnNode
+  relay:          True
+  router:         agc_router
+  generators:     [packet_generator]
+  selector:       band_selector
+  radios:         [basic_radio]
+  mobility_model: scheduled_mobility
+
+# Basic CGR router
+agc_router:
+  class:            AgcCgrRouter
+  excluded_routes:  []                      # Routes that are not valid
+  relays:           all                     # Everyone is a relay
+  max_relay_hops:   100000000               # Unconstrained number of relay hops
+
+# Outduct selector
+band_selector:
+  class: DtnDefaultSelector
+
+# =============================================================================
+# === CONNECTIONS
+# =============================================================================
+
+# Simple connection
+connection:
+  class:    DtnScheduledBroadcastConnection
+  ducts:    {D: basic_duct}
+  mobility_model: scheduled_mobility
+
+# =============================================================================
+# === DUCTS
+# =============================================================================
+
+# Simple duct
+basic_duct:
+  class: ['DtnInductBasic', 'DtnOutductBasic']
+  radio: 'basic_radio'
+
+# =============================================================================
+# === RADIOS
+# =============================================================================
+
+# Basic radio
+basic_radio:
+  class: DtnBasicRadio
+  rate:  !!float 1e6
+  BER:   !!float 0.0
+
+# =============================================================================
+# === TRAFFIC GENERATORS
+# =============================================================================
+
+# File generator for the constellation state data
+packet_generator:
+  class:        AgcPacketGenerator
+  file:         ./example_case_4_withPriority/{}_withPriority
+  data_type:    file
+  bundle_size:  2000          # Size of one bundle is 1645 + ~20% overhead in [bits]
+  bundle_TTL:   3600          # Unconstrained TTL
+  critical:     False         # Everything is critical state telemetry
+  until:        4500
+
+# =============================================================================
+# === REPORTS
+# =============================================================================
+
+reports:
+  - DtnSentBundlesReport
+  - DtnArrivedBundlesReport
+  - DtnDroppedBundlesReport
+  
+# =============================================================================
+# === EOF
+# =============================================================================
