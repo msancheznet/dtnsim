@@ -12,7 +12,8 @@
 from bin.main import load_configuration_file, run_simulation
 
 # Define configuration file (relative to working directory = <path_to>\dtnsim-public)
-config_file = './tests/test_1.yaml'
+#config_file = './tests/test_1.yaml'
+config_file = './openai/lunar_scenario.yaml'
 
 # Load configuration file
 config = load_configuration_file(config_file)
