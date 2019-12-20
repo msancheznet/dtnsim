@@ -42,8 +42,6 @@ class RtRecord():
 
         return d
 
-#RtRecord = namedtuple('RtRecord', 'bundle contact route priority neighbor')
-
 class DtnAbstractRouter(Simulable, metaclass=abc.ABCMeta):
     """ An abstract router """
     def __init__(self, env, parent):

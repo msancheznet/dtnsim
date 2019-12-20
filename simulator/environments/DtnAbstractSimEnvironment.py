@@ -71,7 +71,8 @@ class SimEnvironment(simpy.Environment, metaclass=abc.ABCMeta):
         try:
             self.track_simulation(dt=self.config['globals'].track_dt,
                                   until=self.until)
-            kwargs['until'] = self.until
+            if not 'until' in kwargs:
+                kwargs['until'] = self.until
             super(SimEnvironment, self).run(*args, **kwargs)
         except Exception as e:
             self.new_log_section(title='SIMULATION EXCEPTION')

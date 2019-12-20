@@ -40,21 +40,21 @@ class DtnGlobalsParser(DtnAbstractParser):
     @validator('indir')
     def validate_indir(cls, indir):
         # Create a path object
-        path = Path(indir)
+        path = Path(indir).absolute()
 
         # If this path does not exist, raise error
         if not path.exists():
-            raise ValueError(f'Input directory {indir} does not exist.')
+            raise ValueError(f'Input directory {path} does not exist.')
 
         return path
 
     @validator('outdir')
     def validate_outdir(cls, outdir):
         # Create a path object
-        path = Path(outdir)
+        path = Path(outdir).absolute()
 
         # If this path does not exist, raise error
         if not path.exists():
-            raise ValueError(f'Output directory {outdir} does not exist.')
+            raise ValueError(f'Output directory {path} does not exist.')
 
         return path
