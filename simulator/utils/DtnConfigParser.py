@@ -26,7 +26,7 @@ def load_configuration_file(file):
 
     # Read the file
     with path.open(mode='r') as f:
-        config = yaml.load(f)
+        config = yaml.load(f, Loader=yaml.FullLoader)
         config['globals']['config_file'] = path.name
 
     # Return configuration

@@ -64,7 +64,10 @@ class DtnAbstractGenerator(Simulable, metaclass=abc.ABCMeta):
                      bundle, look at ``DtnBundle.Bundle.export_vars``
         """
         if not self.monitor or len(self.sent) == 0:
-            idx = pd.MultiIndex(levels=[[],[]], labels=[[],[]], names=['bid', 'cid'])
+# 20220307: ichappel@ida.org
+# fix for deprecated 'labels' parameter, now 'codes' in pandas 4.0.1
+#            idx = pd.MultiIndex(levels=[[],[]], labels=[[],[]], names=['bid', 'cid'])
+            idx = pd.MultiIndex(levels=[[],[]], codes=[[],[]], names=['bid', 'cid'])
             df  = pd.DataFrame(index=idx)
         else:
             df = pd.DataFrame([b.to_dict() for b in self.sent]) if self.monitor else pd.DataFrame()
