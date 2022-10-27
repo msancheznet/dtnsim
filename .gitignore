@@ -1,0 +1,11 @@
+# byte-compiled / optimized
+__pycache__/
+
+# distribution
+.Python
+build/
+dist/
+*.egg-info/
+
+# Sphinx stuff:
+docs/_build/
