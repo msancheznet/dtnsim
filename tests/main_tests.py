@@ -18,7 +18,7 @@ base_dir = './' if 'tests' in os.getcwd() else './tests/'
 def _run_test(test_id):
     # Load the config file
     with open(base_dir + f'test_{test_id}.yaml') as f:
-        config = yaml.load(f)
+        config = yaml.load(f, Loader=yaml.FullLoader)
 
     # Run the simulation (avoid circular import)
     from bin.main import run_simulation

@@ -1,0 +1,168 @@
+test_1 (__main__.BasicTests) ... ok
+test_2 (__main__.BasicTests) ... ok
+test_3 (__main__.BasicTests) ... ok
+test_4 (__main__.BasicTests) ... ok
+test_5 (__main__.BasicTests) ... ok
+test_6 (__main__.BasicTests) ... ok
+test_7 (__main__.BasicTests) ... ok
+test_9 (__main__.BasicTests) ... ok
+test_static_router (__main__.BasicTests) ... [58499 | Simulation     ]: Initializing Simulation "" (Seed = 0)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:03m:55s (x235.55)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:09m:41s (x290.82)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = 0)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:02m:02s (x122.77)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:03m:06s (x93.42)
+[58499 | Simulation     ]: 0h:00m:03s vs. 0h:03m:57s (x79.19)
+[58499 | Simulation     ]: 0h:00m:04s vs. 0h:04m:55s (x73.96)
+[58499 | Simulation     ]: 0h:00m:05s vs. 0h:05m:53s (x70.63)
+[58499 | Simulation     ]: 0h:00m:06s vs. 0h:06m:56s (x69.49)
+[58499 | Simulation     ]: 0h:00m:07s vs. 0h:07m:51s (x67.36)
+[58499 | Simulation     ]: 0h:00m:08s vs. 0h:08m:47s (x65.98)
+[58499 | Simulation     ]: 0h:00m:09s vs. 0h:09m:43s (x64.81)
+[58499 | Simulation     ]: 0h:00m:10s vs. 0h:24m:13s (x145.34)
+[58499 | Simulation     ]: 0h:00m:11s vs. 0h:29m:17s (x159.82)
+[58499 | Simulation     ]: 0h:00m:12s vs. 0h:47m:25s (x237.16)
+[58499 | Simulation     ]: 0h:00m:13s vs. 1h:41m:00s (x466.22)
+[58499 | Simulation     ]: 0h:00m:14s vs. Inf (xinf)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = 0)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:01m:54s (x114.61)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:03m:22s (x101.45)
+[58499 | Simulation     ]: 0h:00m:03s vs. 0h:03m:54s (x78.26)
+[58499 | Simulation     ]: 0h:00m:04s vs. 0h:04m:39s (x69.92)
+[58499 | Simulation     ]: 0h:00m:05s vs. 0h:05m:30s (x66.13)
+[58499 | Simulation     ]: 0h:00m:06s vs. 0h:06m:04s (x60.81)
+[58499 | Simulation     ]: 0h:00m:07s vs. 0h:06m:46s (x58.11)
+[58499 | Simulation     ]: 0h:00m:08s vs. 0h:07m:27s (x55.92)
+[58499 | Simulation     ]: 0h:00m:09s vs. 0h:08m:08s (x54.24)
+[58499 | Simulation     ]: 0h:00m:10s vs. 0h:09m:06s (x54.63)
+[58499 | Simulation     ]: 0h:00m:11s vs. 0h:36m:53s (x201.26)
+[58499 | Simulation     ]: 0h:00m:12s vs. 0h:43m:01s (x215.13)
+[58499 | Simulation     ]: 0h:00m:13s vs. 1h:46m:36s (x492.06)
+[58499 | Simulation     ]: 0h:00m:14s vs. 4h:00m:35s (x1031.08)
+[58499 | Simulation     ]: 0h:00m:15s vs. Inf (xinf)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = None)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:00m:28s (x28.51)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:00m:48s (x24.20)
+[58499 | Simulation     ]: 0h:00m:03s vs. 0h:01m:05s (x21.80)
+[58499 | Simulation     ]: 0h:00m:04s vs. 0h:01m:18s (x19.67)
+[58499 | Simulation     ]: 0h:00m:05s vs. 0h:01m:28s (x17.74)
+[58499 | Simulation     ]: 0h:00m:06s vs. 0h:01m:40s (x16.78)
+[58499 | Simulation     ]: 0h:00m:07s vs. 0h:02m:01s (x17.35)
+[58499 | Simulation     ]: 0h:00m:08s vs. 0h:02m:18s (x17.36)
+[58499 | Simulation     ]: 0h:00m:09s vs. 0h:02m:38s (x17.61)
+[58499 | Simulation     ]: 0h:00m:10s vs. 0h:02m:50s (x17.07)
+[58499 | Simulation     ]: 0h:00m:11s vs. 0h:03m:07s (x17.03)
+[58499 | Simulation     ]: 0h:00m:12s vs. 0h:03m:23s (x16.93)
+[58499 | Simulation     ]: 0h:00m:13s vs. 0h:03m:40s (x16.95)
+[58499 | Simulation     ]: 0h:00m:14s vs. 0h:04m:06s (x17.60)
+[58499 | Simulation     ]: 0h:00m:15s vs. 0h:04m:34s (x18.27)
+[58499 | Simulation     ]: 0h:00m:16s vs. 0h:04m:51s (x18.21)
+[58499 | Simulation     ]: 0h:00m:17s vs. 0h:06m:13s (x22.00)
+[58499 | Simulation     ]: 0h:00m:18s vs. 0h:08m:21s (x27.86)
+[58499 | Simulation     ]: 0h:00m:19s vs. 0h:10m:36s (x33.48)
+[58499 | Simulation     ]: 0h:00m:20s vs. 0h:11m:56s (x35.83)
+[58499 | Simulation     ]: 0h:00m:21s vs. 0h:13m:27s (x38.44)
+[58499 | Simulation     ]: 0h:00m:22s vs. 0h:15m:27s (x42.15)
+[58499 | Simulation     ]: 0h:00m:23s vs. 0h:16m:44s (x43.65)
+[58499 | Simulation     ]: 0h:00m:24s vs. 0h:18m:07s (x45.33)
+[58499 | Simulation     ]: 0h:00m:25s vs. 0h:19m:10s (x46.01)
+[58499 | Simulation     ]: 0h:00m:26s vs. 0h:24m:17s (x56.05)
+[58499 | Simulation     ]: 0h:00m:27s vs. Inf (xinf)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = None)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:00m:18s (x18.38)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:00m:31s (x15.80)
+[58499 | Simulation     ]: 0h:00m:03s vs. 0h:00m:44s (x14.69)
+[58499 | Simulation     ]: 0h:00m:04s vs. 0h:00m:57s (x14.33)
+[58499 | Simulation     ]: 0h:00m:05s vs. 0h:01m:11s (x14.33)
+[58499 | Simulation     ]: 0h:00m:06s vs. 0h:01m:23s (x13.98)
+[58499 | Simulation     ]: 0h:00m:07s vs. 0h:01m:33s (x13.39)
+[58499 | Simulation     ]: 0h:00m:08s vs. 0h:01m:45s (x13.21)
+[58499 | Simulation     ]: 0h:00m:09s vs. 0h:01m:57s (x13.07)
+[58499 | Simulation     ]: 0h:00m:10s vs. 0h:02m:11s (x13.11)
+[58499 | Simulation     ]: 0h:00m:11s vs. 0h:02m:20s (x12.77)
+[58499 | Simulation     ]: 0h:00m:12s vs. 0h:02m:32s (x12.72)
+[58499 | Simulation     ]: 0h:00m:13s vs. 0h:02m:44s (x12.66)
+[58499 | Simulation     ]: 0h:00m:14s vs. 0h:02m:58s (x12.76)
+[58499 | Simulation     ]: 0h:00m:15s vs. 0h:03m:17s (x13.14)
+[58499 | Simulation     ]: 0h:00m:16s vs. 0h:03m:35s (x13.50)
+[58499 | Simulation     ]: 0h:00m:17s vs. 0h:03m:54s (x13.80)
+[58499 | Simulation     ]: 0h:00m:18s vs. 0h:04m:13s (x14.06)
+[58499 | Simulation     ]: 0h:00m:19s vs. 0h:04m:32s (x14.35)
+[58499 | Simulation     ]: 0h:00m:20s vs. 0h:04m:49s (x14.46)
+[58499 | Simulation     ]: 0h:00m:21s vs. 0h:05m:46s (x16.49)
+[58499 | Simulation     ]: 0h:00m:22s vs. 0h:07m:08s (x19.48)
+[58499 | Simulation     ]: 0h:00m:23s vs. 0h:08m:32s (x22.29)
+[58499 | Simulation     ]: 0h:00m:24s vs. 0h:10m:22s (x25.94)
+[58499 | Simulation     ]: 0h:00m:25s vs. 0h:12m:09s (x29.16)
+[58499 | Simulation     ]: 0h:00m:26s vs. 0h:14m:30s (x33.48)
+[58499 | Simulation     ]: 0h:00m:27s vs. 0h:16m:41s (x37.09)
+[58499 | Simulation     ]: 0h:00m:28s vs. 0h:18m:11s (x38.98)
+[58499 | Simulation     ]: 0h:00m:29s vs. 0h:19m:17s (x39.93)
+[58499 | Simulation     ]: 0h:00m:30s vs. Inf (xinf)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = 0)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:02m:57s (x177.07)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:03m:45s (x112.55)
+[58499 | Simulation     ]: 0h:00m:03s vs. 0h:04m:42s (x94.27)
+[58499 | Simulation     ]: 0h:00m:04s vs. 0h:05m:25s (x81.29)
+[58499 | Simulation     ]: 0h:00m:05s vs. 0h:06m:02s (x72.48)
+[58499 | Simulation     ]: 0h:00m:06s vs. 0h:07m:10s (x71.70)
+[58499 | Simulation     ]: 0h:00m:07s vs. 0h:08m:41s (x74.46)
+[58499 | Simulation     ]: 0h:00m:08s vs. Inf (xinf)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = 0)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:01m:44s (x104.11)
+[58499 | Simulation     ]: 0h:00m:02s vs. Inf (xinf)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = 0)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:00m:48s (x48.85)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:01m:26s (x43.33)
+[58499 | Simulation     ]: 0h:00m:03s vs. Inf (xinf)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = 0)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:03m:40s (x220.60)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:04m:50s (x145.03)
+[58499 | Simulation     ]: 0h:00m:03s vs. 0h:05m:57s (x119.21)
+[58499 | Simulation     ]: 0h:00m:04s vs. 0h:07m:29s (x112.34)
+[58499 | Simulation     ]: 0h:00m:05s vs. 0h:08m:53s (x106.80)
+[58499 | Simulation     ]: 0h:00m:06s vs. Inf (xinf)
+[58499 | Simulation     ]: Total Simulation Time = Inf
+[58499 | Simulation     ]: Simulation Environment Deleted
+ok
+test_network (__main__.WalkerConsTests) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 144.307s
+
+OK
+Loading contact plan and range intervals
+[58499 | Simulation     ]: Initializing Simulation "" (Seed = 0)
+[58499 | Simulation     ]: 0h:00m:01s vs. 0h:41m:06s (x2466.03)
+[58499 | Simulation     ]: 0h:00m:02s vs. 0h:50m:37s (x1518.51)
+[58499 | Simulation     ]: 0h:00m:03s vs. 0h:51m:22s (x1027.34)
+[58499 | Simulation     ]: 0h:00m:04s vs. 0h:52m:25s (x786.25)
+[58499 | Simulation     ]: 0h:00m:05s vs. 0h:53m:37s (x643.40)
+[58499 | Simulation     ]: 0h:00m:06s vs. 1h:01m:35s (x615.84)
+[58499 | Simulation     ]: 0h:00m:07s vs. 1h:02m:29s (x535.57)
+[58499 | Simulation     ]: 0h:00m:08s vs. 1h:03m:14s (x474.25)
+[58499 | Simulation     ]: 0h:00m:09s vs. 1h:04m:08s (x427.56)
+[58499 | Simulation     ]: 0h:00m:10s vs. 1h:04m:53s (x389.30)
+[58499 | Simulation     ]: 0h:00m:11s vs. 1h:05m:38s (x358.00)
+[58499 | Simulation     ]: 0h:00m:12s vs. 1h:06m:32s (x332.67)
+[58499 | Simulation     ]: 0h:00m:13s vs. 1h:07m:35s (x311.92)
+[58499 | Simulation     ]: 0h:00m:14s vs. 1h:13m:59s (x317.07)
+[58499 | Simulation     ]: 0h:00m:15s vs. 1h:15m:00s (x300.00)
+[58499 | Simulation     ]: Total Simulation Time = 1h:15m:00s
+[58499 | Simulation     ]: Simulation Environment Deleted
