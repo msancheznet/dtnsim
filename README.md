@@ -1,3 +1,8 @@
+20221027
+This is a fork of the original dtnsim repo. It was updated to work with Python 3.8.5, Pydantic 1.9.0, and SimPy 4.0.1.
+
+
+
 DtnSim documentation: https://dtnsim.readthedocs.io/en/latest/
 
 License Terms
