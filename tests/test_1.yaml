@@ -62,7 +62,7 @@ node1:
   router:     static_router
   generators: [file_generator, voice_generator]
   selector:   band_selector
-  radios:     [x_radio, ka_radio]
+  radios:     [ x_radio, ka_radio ] 
   mobility_model: static_model
 
 node2: 
